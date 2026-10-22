@@ -1,5 +1,185 @@
 # Changelog
 
+## v1.32.0 — Office parity (2026-10-22)
+
+Follows v1.31.0 (Office desk, 2026-10-21). This release carries rounds 94, 95 and 96. It is about office parity: an estimate made from now on is rounded the way PWD rounds, half up on the exact figure at every step, its Abstract closes with the QC TEST and ROYALTY sub-works and a TOTAL COST line, and the printed Recap, Rate Analysis, Lead, Royalty and Quality control sheets and the Excel workbook read the way the old office software printed them (any one statement, and the Labour abstract, can now be sent to Excel on its own). The Estimates register, the Dashboard lists, Payments, the Asset register, the Funding tab and the material account can be searched, sorted, copied, saved as CSV and printed, archiving several estimates can be undone, a double submit no longer files a case twice, the first Dashboard after a restart opens almost at once, and the Help centre has one search box. The Windows build now bundles the PDF signing library that 1.31.0 left out, so Sign... works after a normal install. Existing estimates, passed bills and issued outputs keep their figures: only an estimate created from 1.32.0 on (a new estimate, one made from a starter, a re-priced copy or one rebuilt from the V2223 import) rounds half up at every step and gets the new Abstract closing sections, while every existing estimate keeps its rounding rules and its Abstract exactly, and Make a copy, importing a work package and restoring a backup keep the rules of the estimate they came from. The Pune PWD SSR 2022-23 rates are unchanged. A work package saved from a new estimate is package format 7; 1.31.0 and older refuse it rather than import the estimate with different rounding, and a package from an existing estimate keeps its older format and opens everywhere. The SQLite schema stays at 24 (`SCHEMA_VERSION` and the file's version marker are unchanged). 1.32.0 adds 2 tables (`work_totals_cache` and `work_totals_inputs`), 6 columns (on works: `half_up_steps`, `abstract_qc_royalty`, `abstract_cess_lines`, `abstract_cess_percent` and `print_work_photo`; on review_cases: `client_key`), one index and 57 triggers (3 on each of 19 rate-book and reference tables, which count changes to them) to the office database, all created or added in place when the database is opened and defaulted or empty for everything already recorded, so no existing row or figure changes; no table or column is removed or renamed. The upgrade writes no `meta` key. Things to know: the Dashboard remembers an estimate's totals on disk only while its revision, the reference data and the program are unchanged, the Windows build of 1.32.0 has not been run or tested on a PC yet, signing with a Windows certificate or USB token is still marked as not tested on a real token, and some Marathi wording is a draft. The notes for the office are in RELEASE_NOTES_v1.32.0.md.
+
+### PDF signing in the Windows build
+
+- The Windows Setup and the portable ZIP now include the PDF signing library (pyhanko 0.38.0 and its dependencies). In 1.31.0 it was missing from the Windows build, so the Sign dialog said signing was not available on an installed copy.
+- The build lock `requirements-windows-build.lock.txt` pins pyhanko and its full closure, resolved for Windows on CPython 3.14 with every earlier pin unchanged; the PyInstaller spec lists the pyhanko modules and collects pyhanko's data files.
+- Excel files are still written the same way: the signing library brings in lxml, and the program keeps `OPENPYXL_LXML=False` so one workbook writer is used whether or not it is installed.
+
+### Round 96
+
+Builds on round 95. No saved figure changes; the Dashboard keeps each estimate's totals on disk only while its revision, the reference data and the program are unchanged, and a fresh costing is used otherwise.
+
+#### Estimates register
+
+- Estimates register: after archiving or changing the status of several estimates at once, an Undo button stays for 30 seconds and puts them all back.
+- Estimates register: a 'Select all N matching' button ticks every estimate that matches the filters, across all pages, so a whole filtered list can be archived or exported in one go.
+- Estimates register: Print rows now ends with a Total line showing the number of estimates and the sum of their amounts.
+
+#### Faster first Dashboard
+
+- The Dashboard's Estimated value now opens almost at once after a restart: each estimate's totals are kept on disk, so only estimates changed since the last start are re-costed (300-work office: 0.42 s to 0.02 s on the second start).
+- A saved total is used only while the estimate's revision, the program version and the rate books are unchanged. Any rate-book, own-item or market-rate change, by this program or any other, makes every estimate be re-costed.
+- Remembered totals within a running session are also dropped after a rate-book or reference-data change.
+- The speed harness now times the first Dashboard summary on a first and a second start.
+
+#### Help centre
+
+- Help > What's new now keeps each round's sub-headings and introduction, so you can see which topic a change belongs to.
+- Help > What's new lists the four earlier released versions under 'Earlier versions', so you can see what changed since last month.
+- Help has one search box: type a word to find matching keyboard shortcuts, guides, changes and Learning centre terms, in English or Marathi, and click a hit to open it.
+
+#### Excel as the old software
+
+- You can now export just one statement to Excel from the Report actions menu: Recap, Measurement sheet, Material consumption, QC tests, Lead statement, Royalty or the new Labour abstract, instead of only the whole workbook.
+- The Labour abstract Excel sheet lists each subwork's labour (quantity x labour rate) with subwork totals and the total labour cost in rupees and words, matching the printed Labour Abstract.
+- Exporting a large estimate to Excel is about 13% faster; the files are byte-for-byte the same as before.
+- The speed check now reports whether the fast Excel styling path ran, so a library upgrade that switches it off is noticed at once.
+
+#### Lists and backups
+
+- The Dashboard's Needs attention list and the Work queue can now be copied, saved as CSV or printed on the letterhead, like the registers.
+- On a phone-width window each backup is shown as a small card, so Restore and the other actions are no longer hidden behind a sideways scroll.
+- The warning lines in the restore preview are readable in dark mode.
+- Removing an office profile can be undone for 30 seconds, and the whole profile comes back with its customization.
+
+#### Import from the old software
+
+- After importing from the old software's database, each imported estimate is listed with its new grand total, item count and warnings, and an Open button, so it can be checked against the old printed Recap straight away.
+- An old estimate whose work number is already here can now be brought in as a copy with a new number (for example SSR22-23-1-b) by ticking one box. The old behaviour of skipping it stays the default, and the estimate's activity trail records its old number.
+- Civil Estimate 1 imports now keep each measurement's typed parameter text (for example 1*L1*3.3*0.1) on the measurement row's description, not only in the hidden import record. Quantities are unchanged.
+- The warning about old statement settings that could not be carried over now names each statement and the signatory titles it recorded, and the warning texts show in the import result.
+
+#### Speed for big offices
+
+- Big offices open pages faster: the database keeps more of itself in memory between requests.
+- Saving an estimate no longer re-downloads the entire estimate list for the pickers when nothing in the office changed.
+- Searching a long list of items shows the first page of matches with a 'Show all' button instead of drawing every match.
+
+#### Pictures and registers
+
+- Quarry chart images are now reduced automatically when large, and you can add several chart images (up to six) to the Lead statement instead of one.
+- Report setup has a new Work picture section: attach a site or location picture and choose whether it prints on the General Description page (off unless you switch it on).
+- The user-defined items list can be exported to Excel in the same layout as the import template, with each item's status and revision, so the office can keep or re-submit its register.
+
+### Round 95
+
+Builds on round 94. No saved figure changes: existing estimates, passed bills and issued outputs print and total as before; the new Abstract closing sections are switched on only for estimates created from now on.
+
+#### Items and measurements
+
+- Press M on a selected item row to add a measurement to it.
+- Keep adding rows and Add another item now remember whether you ticked them.
+- Previous item and Next item now tell you to save or stop editing first instead of silently doing nothing.
+- Edit saved rows: Enter on the last box continues into the new rows, each saved row can be duplicated, and a removed row can be brought back with Undo before saving.
+- Paste from Excel now reviews the rows as soon as you paste; Add all rows still needs the review to pass.
+
+#### Rate Analysis and Abstract as the old software
+
+- Rate Analysis: each lead line now reads coefficient x charge = the line amount, and the subtotal above the Final Rate includes the Non-SCADA deduction and every other adjustment, as the old software prints it.
+- Abstract: a new estimate's Abstract ends with the QC TEST and ROYALTY sub-works (rate charges, surcharges, DMF only when levied, the royalty grand total before and after rounding) and a TOTAL COST line equal to Part A + Part B. Existing estimates keep their Abstract until this is switched on in Estimate settings.
+- Abstract: a new print choice in Estimate settings shows each plain schedule item's rate with the old 'Deducting 2.0% for Labour cess / Adding Back / Final Rate Say Rs.' lines. The percentage is editable, and the lead lines stay in the Rate Analysis. Rates and amounts do not change.
+
+#### Faster start on low-end PCs
+
+- Faster start: English sessions no longer download the 1.6 MB Marathi word list; it is fetched only when Marathi is remembered at start-up or the first time you switch to Marathi, and the switch still needs no restart.
+- Faster start: the page now tells the browser up front which of its roughly 310 start-up files it will need, so they download in parallel instead of one level at a time.
+
+#### e-MB and bills
+
+- In the measurement book entry, click a row and press E to edit, D to duplicate, X to deduct or Delete to remove it. A duplicated row is selected and scrolled into view, and Undo brings back a slip.
+- The entry's Edit menu now has Duplicate ticked rows, so several ticked rows can be copied at once as Remove ticked rows already allowed for deleting.
+- When you pass or pay several bills in a row, the Authorised by name and the cheque date you used last are offered again until you close the app.
+
+#### Revision check on bills, e-MB records and site photos
+
+- Edits to running bills, measurement-book entries and site photos now carry the estimate's revision. A save made from a screen that another window has since changed is refused with nothing written, and the usual 'changed in another window' sheet opens.
+- The measurement book now keeps track of the estimate revision after each of its own saves, so saving several times in a row from the book keeps working. 'Use latest' on the conflict sheet reloads the book and keeps the entry being typed.
+
+#### Report wording as the old software
+
+- Measurement sheet now words a linked quantity the way the old software did: 'N% of Total of Item No : X from Subwork : Y', so a reader can trace the link without opening the estimate.
+- Lead statement prints 0 in the Initial Lead Charge column and writes charges as '410.55 / Cubic Metre'; its last column repeats the lead charge.
+- Quality control sheet drops the trailing 'Only' from its total line and the bracketed code after each test name.
+- Royalty sheet headings read 'Surcharge (Rs/unit)' and 'DMF Charge (Rs/unit)' as in the old print.
+- Added an automatic check that the printed Recap, Rate Analysis, Lead, Royalty and QC sheets carry the old software's labels.
+
+#### Saving safely
+
+- Saving twice in quick succession on an open estimate no longer shows a false 'changed by someone else' message. The second save now waits for the first.
+- If a save goes through but the screen cannot reload afterwards, you now see 'Saved, press Refresh' instead of a save error, so nobody re-enters the same entry.
+- After restoring a backup, 'Undo restore' now stays available even if reloading the lists hiccups. The old measurement book and any earlier undo offer are cleared.
+- Background re-reads that fail (the other-window check after a photo change, the milestone table, the source catch-up) now say 'Could not refresh at hh:mm' instead of staying silent.
+
+#### Input safety
+
+- Saving a work package that is too big to import back (over about 10 MiB) now warns you first.
+- Importing a package larger than the 12 MiB limit now says so at once, in Marathi too, instead of failing after a wait.
+- Measurement formulas typed or pasted with Marathi digits, such as २+३, now work.
+- If the browser cannot keep your unsent form draft, the save pill now says so.
+- Old recovery drafts (over 60 days, or for estimates that no longer exist) are cleared at start-up.
+
+### Round 94
+
+Builds on v1.31.0. Existing estimates, passed bills and issued outputs keep their figures; only estimates created from now on use the new half-up steps. The schema stays at 24; round 94 adds two columns (works.half_up_steps and review_cases.client_key), defaulted for every existing row.
+
+#### Safe saves
+
+- Submitting a new review case twice (double Enter or Ctrl+S) no longer files it twice.
+- The asset, link, repair-outcome, closeout defect and closeout step forms ignore a second submit while the first is still saving.
+- The phone pairing dialog clears the QR and code as soon as the code expires, and the countdown refreshes every few seconds.
+
+#### PWD half-up rounding for new estimates
+
+- New estimates round half up on the exact figure at every step: whole rupees (Recap lines, GST, contingency, QC and royalty), material coefficients and the QC site/lab split. For example, 1,50,996.4974 now gives Rs 1,50,996, not Rs 1,50,997.
+- Every existing estimate keeps its figures exactly, including those made since the corrected and half-up rules. Copies, imports and restores keep the rounding of the estimate they came from.
+- On a new estimate the printed Say figures (Recap Part A Rounded, Labour Abstract, Schedule B) use the same rupee rounding as the Recap total.
+- A new estimate's QC schedule now rounds a half test up when it splits tests between site and laboratory, so 5 tests split 1:1 pay 3 laboratory tests.
+- Estimate settings shows 'PWD half-up on exact figures at every step' for a new estimate, in English and Marathi.
+- A work package from a new estimate is format 7. Version 1.31.0 and older refuse it rather than import it with different rounding.
+
+#### Marathi refusal messages
+
+- Refusal messages on the asset, payment, review, quality and fund screens now appear in Marathi when the office language is Marathi.
+- Any server refusal with a known Marathi line is translated automatically by the shared request code, so new screens get it for free.
+
+#### Register search and sort
+
+- Payments (all works), the Asset register (Assets and Physical assets) and the Funding tab (schemes, orders, allocations) now have a search box and a Sort by choice, with a Showing x of y line when you search.
+- Your search and sort choice on each of these lists is remembered for the office, like the other registers.
+- A search that matches nothing says so in a table row instead of showing an empty list; no amount or order of the underlying records changes.
+
+#### Material account and review cases
+
+- The material account's movements list can be filtered by material and copied, saved as CSV or printed on the office letterhead. Reversed entries stay in the list.
+- Review cases has an All open cases list showing every submission and query still waiting for a step across all estimates, soonest due first, each linking to its estimate.
+- Review cases can be filtered to open or closed cases.
+- Opening Review cases with no estimate selected now shows that all-estimates list instead of doing nothing.
+
+#### Server speed on low-end PCs
+
+- The page files the app serves are now remembered in memory, so reloading the app no longer re-reads and re-checks every file from disk.
+- On a brand new install the built-in rate schedule is marked as checked after the first start, so the second start is quicker.
+
+#### Asset undo
+
+- Deleting an asset, unlinking a work from an asset, and unlinking a repair estimate from an upkeep task now each show an Undo button for 30 seconds.
+- Undoing an unlink brings back the link's relationship, note and cost-counting setting.
+- Undoing an asset delete recreates the asset with all its linked works.
+
+#### Schedule C specifications
+
+- Schedule C: you can now type the spec page and an additional specification when adding your own item, and edit both on any item from Edit item. They print in the Schedule C report. No amount changes.
+
+#### Code tidy
+
+- Behind the scenes, two screens (the chainage strip and the hidden-work rules sheet) now use the app's single text-escaping routine instead of their own copies, so any future fix lands everywhere. Nothing changes on screen.
+- Behind the scenes, four calculation modules now share one text-trimming helper instead of four identical copies. Nothing changes in any figure.
+
 ## v1.31.0 — Office desk (2026-10-21)
 
 Follows v1.30.0 (Visual estimate, 2026-10-20). This release carries rounds 90, 91, 92 and 93. It is about the office desk: site entry from a phone, deviation and funding statements, audit paras, a works map and asset register, taking off from a drawing, importing an old V2223 estimate, signing a saved PDF, and the Connected Work Lifecycle (bundles B01 to B18, built in round 93), together with a faster start on low-end PCs and a fallback to the default web browser on a PC without the WebView2 Runtime. Existing estimates, passed bills and issued outputs keep their figures, and no rate, rounding rule or saved figure of an existing estimate changed: the Pune PWD SSR 2022-23 rates are unchanged and a fixed set of 1,000 rounding cases now guards the rounding. The SQLite schema stays at 24 (`SCHEMA_VERSION` and the file's version marker are unchanged). 1.31.0 adds 57 tables and 8 columns to the office database (on works, measurements, work_ra_bill_deductions and office_reminders), all created or added in place when the database is opened, empty or blank for everything already recorded, so no existing row or figure changes; no table or column is removed or renamed. The upgrade writes no `meta` key itself: the office settings that are new in this release (the phone entry switch, the deviation limit, the thumb-rule ranges, the payment, Fund planner, quality release, contract basis and review case settings, the audit para choices, the handover document list and the works map road words) are saved as rows of the existing `meta` table only when the office first saves them, and the faster start keeps one more row there, a stamp of the last rate schedule check. Things to know: rules that need the office's own examples are built switched off and say why (pricing later bills on a revised basis, the UC and year-end close of the Fund planner, the office's handover document list, the retest rule of the quality release, deleting old cloud backups and similar policies), and the Mahatenders e-tender BoQ export waits for an office sample. Some Marathi wording is a draft for a Marathi reader to check. The notes for the office are in RELEASE_NOTES_v1.31.0.md.
