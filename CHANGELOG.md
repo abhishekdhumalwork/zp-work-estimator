@@ -1,5 +1,785 @@
 # Changelog
 
+## v1.33.0 — Sub division desk (2026-10-24)
+
+Follows v1.32.0 (Office parity, 2026-10-22). This release carries rounds 97 to 107 (rounds 97, 98, 99, 100, 101, 102, 103, 104, 105, 106 and 107) and a few small fixes made alongside them. It is about the sub division desk: registers and statements for a work from proposal to the end of its defect liability period (proposals, damage, letters, legal cases, inspection visits, roads, measurement books, time control, a site diary from the phone, a work programme, a field levels book and site safety), quick estimate builders and design sheets for pipelines, culverts, causeways, sanitation, walls, wells, school buildings, bandhara, KT weir, check dam and percolation tank works and compound walls, road, building and structure surveys and programmes (with a road furniture inventory, a Benkelman deflection survey, and KML, GeoJSON and GPX), a rainfall and workable-days log, an instruments register and stack measurement sheets, a Sub division use setting (on by default) that hides the tender, bid, work order, performance security and statutory remittance screens without deleting anything, and steadier, quicker screens. Existing estimates, passed bills and issued outputs keep their figures and the Pune PWD SSR 2022-23 rates are unchanged. SQLite schema 24 is unchanged: 76 tables, 10 columns and 48 indexes are added in place.
+
+### Round 107
+
+#### Quick bandhara, KT weir, check dam and percolation tank
+
+- New estimate > Quick bandhara: type a cement nala bund, check dam, KT weir with FRP needle gates, percolation tank or nala deepening, and get a draft estimate measured item by item from the SSR cross-drainage, bridge and earthwork items, with a live preview of quantities and the total.
+- Covers wing walls, M15/M20/M25 cut-off walls, rubble-paved and flexible aprons, the tank's earthen bund and cut-off trench with upstream pitching, nala deepening by strata, dewatering by pump hours (with the SE's prior approval) and the detailed bandhara survey; every rate comes from the chosen schedule and no hydrology figure is assumed.
+- Heads of account on these drafts are left blank for the office to enter.
+
+#### Quick compound wall, fencing and gate
+
+- New Quick compound wall in the New estimate menu: type the boundary length, wall height and thickness, pillar spacing, foundation, plinth, optional plinth beam, gates and optional barbed wire or chain link fencing, and get a draft estimate measured from the SSR items instead of the fixed-size template.
+- The pillar count follows from the wall length and spacing (plus one for each gate), the wall between pillars, plaster and paint on the pillars are deducted where the wall joins them, and gates are measured by area.
+- A live preview shows the pillar count, gate area, fencing, work portion and grand total before the estimate is created; the fixed Compound Wall template is still available under From template.
+- Marathi labels added for the new sheet.
+
+#### Road furniture inventory
+
+- Road furniture inventory: record signs, kilometre stones, delineators, crash barrier, road studs and markings of a road by chainage and side, as Good, Damaged or Missing, with size and photographs.
+- Choose the repair items for each kind and condition from the SSR road furniture and crash barrier items (nothing is pre-set), and see the quantity of each against them.
+- Tick roads and make a draft estimate for each from the missing and damaged items, at the schedule's own rates; the draft is linked to the road as a repair.
+- Print and Excel export of the road furniture inventory, in English and Marathi.
+
+#### KML, GeoJSON and GPX
+
+- You can now save the works map as one KML file for Google Earth or one GeoJSON file for QGIS: works at their site photo GPS point, the road register's roads as lines, culverts and bridges that have a position, and the fixed photo points.
+- Culverts and bridges in the road register can now carry a latitude and longitude, and a culvert's GPS fix from a road walk-over is kept when the walk-over is accepted.
+- A GPX track from a GPS handset can now be loaded in the site investigation as a road walk-over: type where the track starts, and its waypoints get their chainage along the road for you to review and accept like a walk-over sent from the phone.
+
+#### Benkelman deflection survey
+
+- New Deflection survey sheet in the estimate's More menu: record Benkelman beam rebound deflections by chainage, split the road into uniform sections and see each section's mean, standard deviation and characteristic deflection against the permissible deflection you typed.
+- Record the overlay thickness chosen for each section, optionally linked to an estimate item that is checked against the thickness in the estimate, and print the Deflection Survey and Overlay Record.
+- Correction, factor, permissible deflection and overlay thickness are typed with their code clause; nothing is supplied by the program and no estimate figure changes. The survey travels in the work dossier and is kept in the Activity record.
+
+#### Rainfall and workable days
+
+- Diary: a new Rainfall sheet to enter the daily rain from the rain gauge in millimetres, on any day of the work.
+- A monsoon statement sets each month of the contract period against the rain recorded and the workable days; the office types the rain that makes a day unworkable, and none is assumed.
+- The monsoon statement prints on the letterhead, is kept with every extension of time proposal, and appears beside the notices in Time control.
+- Rainfall readings travel in the work dossier and stop an estimate with readings from being deleted.
+
+#### Instruments register
+
+- New Instruments register under Statements: the Sub Division's levels, total stations, tapes, Schmidt hammer, cube moulds and slump cones, with who holds each, the work it is on, and when calibration or repair is next due.
+- Calibration interval is typed by the office in months and starts empty; the next calibration date is worked out from the last calibration and shows overdue instruments clearly.
+- Calibration and repair due dates now appear in Reminders and the calendar file, and open the register when clicked.
+- A work with an instrument on it, or a staff member who holds one, cannot be deleted until the instrument is cleared.
+- Register rows can be copied, saved as CSV or printed on the letterhead; Marathi labels included.
+
+#### Stack measurement sheets
+
+- New Stack measurement sheet in the measurement book's More menu: record a stack of sand, metal or murum with its length, widths and height, the bulking or void percentage you type, and who measured it jointly with the contractor's representative.
+- The sheet works out the stacked volume and net quantity, and sets each mineral's stacked quantity beside the royalty proofs filed and the quantity received, as advice only.
+- Stack measurement sheets print for the MB reference and travel with the work dossier; no estimate or bill figure changes.
+
+#### Try again when a list cannot load
+
+- When the Bills list cannot be loaded, the table now says so plainly and offers a Try again button, instead of bare red error text.
+- When the Activity record of an estimate cannot be loaded, the tab now says so and offers Try again, so you no longer have to leave and reopen it.
+- On a sanctioned estimate, the measurement sheet no longer shows 'Draft estimate' when the sanctioned quantities could not be read. It says so and offers Try again. If the sanction version was not kept, it says that instead.
+- After a bill is marked Passed or Paid, if the bill list cannot reload, the notice says the status was saved and offers Refresh. The action buttons stay disabled until it reloads, so Pass cannot be pressed twice.
+
+#### Lighter typing on slow PCs
+
+- Add item no longer stays on 'Finding matching item codes…' when the schedule search fails: it says the search failed and offers Try again.
+- Typing in the 'Edit saved rows' boxes of a long measurement item is lighter: the draft save and footer total wait a moment after you stop typing, and are saved at once when you leave a box, review or close.
+- The item find box on a big estimate answers faster on slow PCs: search text is prepared once per estimate and the list waits a moment between keys on estimates with over 300 items.
+
+### Round 106
+
+#### Road distress survey
+
+- Road distress survey: record potholes, cracks, edge breaks and settlements on a road by chainage and side, with size, depth and photographs, from the Statements menu.
+- Roads with open distress are ranked worst first by your own severity grades. A repair quantity sheet totals each kind of distress against the repair items you chose for it.
+- Tick bituminous roads to make a draft repair estimate for each. Its quantities are the sizes you typed, at the schedule's rates, and it is linked to the road as a repair.
+- The severity grades and the repair item for each kind of distress are office settings that start empty. The survey prints, exports to Excel, and works in Marathi.
+
+#### Spot-level grid survey
+
+- Spot levels and contours: from Site work > Survey levels, type or paste grid block levels, or open a total station or GPS points file, and get a contour plan, the cutting and filling to a formation RL, and the level that balances cutting and filling.
+- Grid levels are worked block by block by the four-corner mean depth (a block crossed by the formation level is split by the borrow-pit rule). Scattered points are triangulated and each triangle is worked exactly. The block table adds up to the total.
+- The contour plan prints on the office letterhead with the block and spot level tables and signature spaces.
+- The cutting and filling reach a draft estimate only through Preview rows and Add to the estimate, as one audited batch. This is refused if the levels changed since the preview. Saving the levels never changes the estimate, and the levels travel in the work dossier.
+
+#### Take-off from a DXF drawing
+
+- Take off from a CAD drawing: choose a DXF file from the consultant or architect and get the lengths, areas and block counts of each layer as draft rows for Add measurement, instead of tracing a PDF by hand.
+- Units are read from the DXF when it names them, otherwise you choose them; closed outlines give area and perimeter, circles and curved segments are measured, and anything not measured (splines, hatches) is listed so it is not missed.
+- Nothing is saved or stored by the take-off: you review the rows in Add measurement and only your own Save writes quantities, so no existing estimate figure changes.
+- The DXF reader works offline with no extra software and refuses binary DXF and DWG files with a plain message telling you to save as ASCII DXF.
+
+#### Bridge and culvert inspection
+
+- Culverts and bridges can now be inspected once a year, component by component, using the office's own component list and rating words, with photographs and the size of any repair needed.
+- A ranked repair list of culverts and bridges (worst rating first) prints and exports to Excel, and ticked structures can start a draft repair estimate linked to their road.
+- The component list, rating words, the rating from which repair is needed and the repair items for each component are office settings that start empty.
+- A culvert or bridge that has an inspection can no longer be deleted, so its history is kept.
+
+#### Work photograph album
+
+- You can now print a photograph album for a work from the photo points dialog, with every site photograph laid out Before, During and After, each with its caption, date, chainage and GPS.
+- The album can be limited to one stage or to photographs taken between two dates, and set to two or four photographs per page.
+- The album only reads existing photographs; no estimate figure or bill changes.
+
+#### Right-of-way and encroachment register
+
+- Right-of-way register for road works: on Site desk > Diary, 'Right of way…' records encroachments, trees, poles or lines, pipelines and disputed strips by chainage and side, with width, owner, photographs, the notices sent and the date cleared.
+- The register prints on the letterhead for the division and the tahsildar, all entries or only those not yet cleared.
+- An entry still open, or cleared after the work order date, is offered as a hindrance in the extension of time proposal.
+- The register travels with the work dossier. An estimate that has register entries cannot be deleted until they are removed.
+
+#### Quick school, anganwadi and toilet block estimate
+
+- New 'Quick school or anganwadi' sheet on the New estimate menu: type the classroom block or Anganwadi building's size, floors, rooms, doors and windows and choose the flooring and paint to get a draft estimate.
+- The draft measures plinth filling, soling, M-10 bed, DPC, brick walls and door/window shutters from what you type, and fills the estimate's Room schedule and Openings schedule. Plaster, flooring, skirting and paint rows, and the IS 1200 deductions for openings, come from those schedules and are written again when a room or opening is changed.
+- The building's plinth area is recorded as the estimate's built-up area for the scrutiny cost-per-m² check; rates come only from the chosen schedule.
+- Toilet blocks stay on Quick sanitation; the new sheet has a button to open it.
+
+#### Stability
+
+- When a saved sheet (rate technique, recap charge, material replacement, market rate, lead, QC count) could not repaint the screen, you now get a 'Saved, but the screen could not be refreshed' notice with a Refresh button instead of nothing.
+- Quick culvert, wall, sanitation, causeway and well sheets: if the estimate is created but the list cannot refresh, you are told, and the notice has Refresh and Open estimate buttons.
+- Recap GST, contingency and charge rate boxes now explain a refused value (empty, out of range, too many decimals) beside the box and keep what you typed. Esc restores the saved value.
+- A single failed Dashboard summary read no longer pulls every costed estimate on each refresh. The last good figures stay on screen, marked 'Figures as of <time>, could not refresh', and the next refresh tries again.
+
+#### Speed
+
+- Measurement books: coming back to the Execution screen, or picking the same estimate again, no longer re-reads and re-costs the whole estimate when it has not changed, so it opens faster on older PCs.
+- Estimate window: saving a row in a large estimate no longer rebuilds the Reports tab until you open it, which makes saves much lighter on a big estimate (about 4 times faster to redraw on a 1000-item estimate on a slow PC).
+
+#### Lists and tab names
+
+- The Material account, Materials issued and Road layer laying sheets now have a find box with a 'shown of total' count and a Clear button. Arrow keys move between rows, and Enter opens Edit where a row has one.
+- The browser tab and Back list now name the screen you are on, such as 'Dashboard' or 'Measurement books'. With an estimate open, its number comes first. It follows the language.
+
+### Round 105
+
+#### Steel and cement reconciliation
+
+- New 'Steel and cement reconciliation' sheet in the measurement book's More menu: for each bar diameter it sets the steel received and used at site against the steel the measured work needs, and shows the shortfall, the excess and the scrap, so the JE can explain them before the DE's check.
+- Cement is reconciled the same way in bags: received and used against the theoretical bags for the executed quantities.
+- The office types its own allowed steel scrap % and cement wastage %; both start empty, and without them the sheet shows the figures and judges nothing.
+- The sheet prints as a landscape Steel and Cement Reconciliation statement. It is advice only: no bill deduction or estimate figure changes.
+
+#### Water supply design sheet
+
+- New Water supply design sheet in the estimate's More menu: from the census population, growth, demand per head, losses and source yield it works out the design population, daily demand and storage tank, and checks the source yield against the demand.
+- The sheet sizes each pipe section by Hazen-Williams head loss, picking the smallest standard size that fits and showing flow, head loss and velocity, and works out the pump discharge, head and power for the rising main.
+- Every figure the code or GR prescribes is typed by the engineer with its clause; the sheet ships none, and anything not yet typed is named instead of guessed.
+- The sheet prints as a Water Supply Design Sheet and can send the sized pipes and the tank to the Quick pipeline form after you see them listed and confirm.
+- The design is a record only: it changes no estimate figure, travels in the whole-work file, and blocks deleting an estimate until the design is deleted.
+
+#### Gram Sabha demands
+
+- Works proposals now record the Gram Sabha resolution number, resolution date and village population
+- New village-wise demand sheet shows each village's resolutions and population, how many demands are pending, awaiting an estimate, made into estimates, sanctioned or completed, and lists every demand with where it stands
+- The village-wise demand sheet can be printed and exported to Excel, and its labels are in Marathi
+- Estimates, sanctioned and completed counts on the sheet are cumulative, and a draft estimate's own status decides which stage a demand has reached
+
+#### Quick well and solar builder
+
+- New Quick well and solar builder in the New estimate menu: a dug well with steining, curb, parapet and cover; a borewell with casing and pump; roof rainwater harvesting with recharge pits; or a rooftop solar plant for a school or Gram Panchayat building. It makes a new draft from the typed design.
+- Dug well excavation is measured by stratum in the schedule's 1.5 m lifts to 6 m; deeper lifts, borewell drilling outside the schedule's 300 mm bore, pumps and all solar items come in as non-schedule items at no rate, ready for rate analysis.
+- Each rainwater harvesting filter is chosen from the schedule's 51.228 sizes by the roof area it serves, and the yearly harvest is shown when the runoff coefficient and rainfall are typed.
+
+#### Measurement book page abstract
+
+- The e-MB Print menu has a new Page abstract: for each measurement book it shows every page's total per item and the running total carried to the next page, re-added from the recorded rows, with the Deputy Engineer's check of each page.
+- A page the DE has checked is flagged for re-check when an earlier page of the same book was edited or scrapped afterwards and so moved the carried figure; a page whose own check was cleared by an edit shows 'Check lost, re-check'.
+- The page abstract is read-only: it changes no measurement, estimate or bill figure.
+
+#### Road curve setting-out
+
+- Added a road curve and superelevation setting-out sheet: type each bend's intersection angle, radius, transition, chainage of the intersection point and, with the office's IRC clause, the superelevation rate and extra widening.
+- The sheet gives the tangent and curve lengths, the circular arc, the external distance and the chainages of the curve points, with the backsight reading that orients the circular part.
+- Peg tables at the chosen interval give each peg's deflection angle from the tangent, the chord from the previous peg and the superelevation and widening reached there, ramped along the transitions.
+- The sheet prints as an A3 PDF on the office title block, one page per bend, for the survey party; nothing is stored and no estimate figure changes.
+- No rate, speed or percentage is supplied: whatever the engineer does not type is left blank with a note asking for it with the IRC clause.
+- The screen and its Marathi wording load only when the sheet is first opened.
+
+#### As-built drawing markup
+
+- You can now attach a drawing (an image or a PDF page) to a drawing register entry and mark the changes made on site in red: lines, dimensions, text and chainage notes, each optionally tied to a site photograph.
+- The completion pack now prints each marked drawing as an as-built drawing page, with its chainage notes and photograph references listed beneath.
+- Drawing register rows that have a markup show a 'Marked' tag. A drawing with a markup has to have the markup removed before its register entry can be deleted.
+- The markup is kept in the work dossier and recorded in the Activity record. It changes no quantity, rate or bill.
+
+#### Stability
+
+- Work slip figures and the Material account no longer keep the old bill's figures or a stuck 'Loading…' when changing the bill or the 'As on' date fails; the picker goes back and the sheet says it could not be read.
+- Saving Work slip figures can no longer put one bill's typed figures onto another bill while the other bill is still loading.
+- The e-MB record entry and the Road bill calculator now say 'Draft cannot be kept on this PC' when the recovery copy cannot be stored.
+- Typing in the e-MB entry's date, page, officer and test boxes is lighter: the recovery copy is written after a short pause rather than on every key.
+- Open in window on the Reports tab and the Complete booklet button now tell you when the report window could not be opened, the same as the other report buttons.
+- Laboratory results: a failed read shows 'Could not be read' with Try again, clears old ticks and switches off the one-report button; the search box no longer rebuilds the Work list on every key.
+
+#### Lists and downloads
+
+- Execution, Site desk, Site work and the QC hubs: a small find box above each estimate list narrows it by work number, name or village words, and keeps the estimate you have chosen
+- Downloads now keep the Marathi file name the office sees, and a CSV, ZIP or PDF no longer falls back to an .xlsx name
+
+### Round 104
+
+#### Road layer laying record
+
+- Road layer laying and compaction record: the Junior Engineer records each day's bituminous, WBM or GSB laying by chainage (width, loose and compacted thickness, binder, mix temperature, roller passes, density test) and the app works out the area, binder spray rate and compaction ratio.
+- The office types its own limits for spray rate, mix temperature, compacted thickness, density and roller passes; nothing is assumed, and findings appear only against a limit that has been typed.
+- The binder used can be added to the material account in one click as a use entry, never twice, and the record prints as a landscape statement and travels in the work dossier.
+- Records only: no estimate or bill figure changes.
+
+#### Charge handing-over report
+
+- Staff and charge now has a Hand over charge section: when a Junior or Deputy Engineer is transferred, one button gives their works and open measurement books to the incoming person and prints the signed handing-over and taking-over report.
+- The report lists the works, measurement books, unpaid bills, open site issues, pending orders to contractors, materials still with the contractor and pending letters, with tick boxes for what the incoming officer verified and signature lines for both officers.
+- Every handing-over is kept and can be reprinted from the same screen, and each work handed over shows the change in its history.
+- Handing over is refused, with nothing moved, for the same person twice, an inactive incoming person, a future date, or a person who holds nothing.
+
+#### Royalty proof register
+
+- Royalty proofs: file each royalty receipt or transit pass the contractor shows for sand, metal, murum or stone against a work, from the e-MB More menu.
+- The sheet sets the quantity the proofs cover against the quantity the executed items need and lists the shortfall for the engineer to act on; it never changes a bill deduction.
+- A printable Royalty Proofs Register, a work-dossier copy of the proofs, and a refusal to delete an estimate that still has proofs; Marathi labels included.
+
+#### DE test-check programme
+
+- New Test-check programme under Statements: for each work under execution, the share of the month's measured value that the Deputy Engineer has test-checked, against the percentage the office requires.
+- The screen lists the entries still unchecked, oldest first, and marks any whose check was cleared by a later edit as 'Check lost, re-check'.
+- The programme prints as a statement for the division. It is a record only and never stops a bill; the required percentage is the office's own setting, and a shortfall is shown only once the office has set one.
+- Marathi entries added for the new screen.
+
+#### More RCC design sheets
+
+- Five more RCC design sheets in Engineering tools: slab culvert deck, staircase, lintel with its chajja (sunshade), ground-level water tank, and column with footing.
+- Each sheet is worked to IS 456 with its steps, checks, bar marks, concrete rows, formwork and a sketch, and can be printed for the TS file.
+- Each sends concrete and steel to the estimate only after a preview and confirm.
+- All loads and office figures are typed by the engineer and start blank: the culvert live load effect, masonry weight, imposed loads, and the tank's permissible steel stress and minimum steel percentage.
+- A column that is slender, or too small for the axial formula, is refused with the reason.
+- Marathi is available for every new label, step, check and note. No estimate figure changes.
+
+#### Quick causeway estimate
+
+- Quick causeway: a new quick builder for vented causeways (IS 458 pipe vents through an M-10 body) and low-level submersible bridges (RCC slab on masonry abutments and piers), opened from the New estimate menu.
+- Type the nala width, vents, deck with kerbs, foundations, aprons, curtain walls, flexible apron and approaches (bank, pavement, pitching, guard stones). Every item and the total show while you type, and Create makes a draft priced only from the chosen schedule.
+- Depth gauges come in as a non-schedule item at no rate, to be priced by rate analysis before technical sanction.
+- A new crossing can be added to a road in the Road register at its chainage: a vented causeway as a culvert, a low-level bridge as a bridge.
+
+#### Quick sanitation estimate
+
+- Quick sanitation: a new quick builder for a school, Anganwadi or Gram Panchayat toilet block with its septic tank, soak pits and plumbing. Type the seats, fittings, users, soil and block, and a draft estimate is measured at the chosen schedule's rates.
+- The septic tank is sized by the Septic tank tool's own IS 2470 (Part 1) calculation, and the sizing is saved with the estimate as calculation evidence.
+- The Septic tank tool can now start a toilet block estimate with its tank in one click.
+
+#### Site material test worksheets
+
+- New Site material tests tool in Engineering tools: type raw readings for sieve analysis, bulking of sand, silt content, aggregate impact, crushing and water absorption, and the app works out the fineness modulus, percent passing or the test percentage.
+- Optional maximum allowed (%) typed from the specification marks each test pass or fail; no limits are supplied.
+- One button files the worked-out reading on a lab result: Laboratory results opens, and the next Record result window already has the reading in Reported value.
+- Marathi text added for the new tool.
+
+#### Faster photos and pages
+
+- Photo grids on Site work and the e-MB sheet now load small copies of each photograph, so they open faster and use much less memory on a 4 GB PC; the enlarged view still shows the full photograph.
+- The Site work screen now loads its photographs by address instead of carrying every picture inside the page data, which makes it open quicker on works with many photos.
+- The app's page files are sent compressed when the browser accepts it, so a second office PC or a phone on slow Wi-Fi starts faster.
+
+#### Registers, search and empty screens
+
+- Damage, Proposals, Drawing and Road registers now work from the keyboard: arrow keys move between rows and Enter opens one.
+- Damage, Road, Drawing and Material approvals registers have a search box with a result count.
+- Ctrl+K now finds roads, culverts and bridges, damage entries and works proposals, and takes you to the record.
+- The Execution page no longer opens on the first estimate in the list. It lists pinned and running works first and opens on the one you last worked on.
+- Excel and CSV downloads show 'Preparing…' on the button while the file is made.
+- On a new PC with no estimates, Site work, Execution and the revision compare screen offer 'Create new estimate' and 'Import a file'.
+### Round 103
+
+#### Building plan scrutiny
+
+- New 'Area statement' on an estimate's More menu: type your office's own room-size rules once (minimum area and width per room type, minimum window-to-floor percentage) and the app checks each building's rooms against them, marking every room Pass, Short or Not stated.
+- The area statement works out carpet, wall, built-up and plinth area from the room schedule and prints them with the layout's assumptions, plus a cross-check of the plinth area against the office's past sanctioned works.
+- The scrutiny sheet before technical sanction now lists the area statement as an enclosure and shows rooms short of the office's rules as open lines.
+- The app ships no room-size limits; nothing is checked until the office types its rules, and no estimate figure changes.
+
+#### Building condition survey
+
+- New Building condition survey (Dashboard > Statements): record defects room by room for a school, Anganwadi or GP building with size, photos and your own condition grade.
+- The year's building repair programme ranks buildings by worst grade, then by area to mend; tick buildings and make one draft repair estimate each.
+- Draft repair estimate quantities are the sizes you typed, against the repair items you chose for each kind of defect, at the rates of the chosen schedule of rates; the draft is linked to the building in the Asset history.
+- Grades and repair items for each kind of defect are your own settings and start empty.
+- Print and Excel for the survey in programme order; Marathi included.
+
+#### Monsoon readiness rounds
+
+- New Monsoon readiness screen in the Statements menu: before each monsoon, and again after it, tick your office's own readiness checklist for every running work and for every culvert and bridge on the road register.
+- A point that is not satisfactory can be raised as a site issue, on the work itself or on a work linked to the road of the culvert or bridge.
+- Last year's damage from the damage register shows beside each work, culvert and bridge.
+- Print the readiness list for the division: every work and structure with its state, then a Not ready list naming the points that failed.
+- Set your office's checklist, the monsoon start date and the days before it for a reminder; all start empty, and the reminder appears only once you have typed the date and the days.
+- A culvert or bridge that has a monsoon readiness round is kept in the road register, and a work with a round cannot be deleted; the rounds travel with the work's dossier.
+
+#### Quick wall and drain estimate
+
+- Quick wall and drain: a new quick builder for masonry retaining, breast and toe walls, gabion walls and stone or RCC side drains, typed section by section along a chainage and priced only from the chosen schedule.
+- Wall rows follow the SSR: excavation by lift, M-10 bed, UCR / random / coursed rubble masonry above and below ground, pointing only where the masonry item does not include it, and optional weep holes, filter media (at least 0.6 m) and coping. Gabion boxes are counted tier by tier.
+- Side drains: side-gutter excavation, bed, masonry or RCC walls and base, optional cover slabs, and steel only from the typed kg per m3.
+- Optional stability check on each typed section: overturning, sliding, eccentricity and bearing, each figure with its formula, against the unit weights, friction, bearing and factors of safety the engineer types (none shipped). It is saved with the estimate and prints in its calculation sheets.
+- A new wall or drain draft can be linked to a Road register road and name the culvert or bridge it protects.
+
+#### 3D builder parts
+
+- The 3D builder can now place a staircase (flight with landing and side walls), a sunshade, a parapet wall and a small overhead tank.
+- Preview and Apply turn these parts into concrete, shuttering, brickwork, plaster, waterproofing and steel rows, in the items you choose for each part; typed rows are never touched.
+- A stair's length is worked from its rise, riser, tread and landing, so the drawing and the quantities always agree; Turn 90 degrees changes the direction it runs.
+- Steel for the new parts follows the steel ratio already measured in the estimate and is left out, with a note, when none can be read.
+- The new part names and fields are available in Marathi.
+
+#### More starter templates
+
+- Eleven new ready-made estimate starters for common ZP works: a school classroom block with verandah, mid-day meal kitchen shed, bus shelter, ground and overhead RCC water tanks, masonry retaining wall, slab culvert, pipe culvert, nala toe wall with stone pitching, lane gutter with footpath, and rainwater harvesting pits.
+- Each starter is measured row by row from SSR 2022-23 items, with deductions shown and reinforcement added from the SSR link, so a JE starts from a full measurement sheet instead of a blank estimate. The dimensions are typical and must be replaced with the site design.
+- The classroom block, kitchen shed and bus shelter also show up in Quick building, and the Quick building search finds them by classroom, kitchen or bus shelter.
+- No existing estimate, rate or calculation changes.
+
+#### Pour records from the phone
+
+- The Junior Engineer can now record a concrete pour from the phone, with the element, grade, quantity, slump, cubes cast and photos. The office sees it with the required IS 456 sample count and the 7 and 28 day test dates, and one Accept makes the pour card.
+- Material received at site can be recorded from the phone: cement bags, steel by bar diameter, the challan number and a photo of the challan. The office accepts it into the material account in one step, and can change a material's name, unit or quantity first. A repeat never doubles a receipt.
+- Pours and deliveries sent from a phone wait in a new 'From the phone…' sheet on the Pour cards tab and the Material account. Nothing is entered until the office accepts, and Reject keeps the reason.
+
+#### Setting-out sheet
+
+- New Setting-out sheet for buildings: from the 3D model it gives each column centre as distances along and across a base line you type, the diagonal of every bay to check squareness, the trench to mark for each footing (footing size plus the working space you type), and the plinth level worked from a typed bench mark and plinth height.
+- The sheet shows on screen as you type and prints as an A3 sheet on the office title block for the mason and the contractor; it stores nothing and adds no measurement rows.
+- Nothing is assumed: with no base line it uses the lowest row of columns and says so, and trench sizes and the plinth level appear only once you type the values they need.
+
+#### Safer forms
+
+- Contract details you type in the measurement book are no longer lost: they are marked 'Unsaved changes', survive refreshes of the book, and Back, X or switching the estimate asks before throwing them away. Quitting the app also warns about them.
+- Restoring a deleted estimate now says it was restored even if opening it afterwards fails, and offers an Open estimate button; Undo on the delete toast explains why Recently deleted opened when it could not restore.
+- The shortcuts list is now accurate: Ctrl/Cmd+S is described as working in almost every sheet and settings page, and the list-navigation keys are labelled as working in estimates and the other lists.
+
+#### Keys and search
+
+- Reminders: use the arrow keys to move between dates, Enter to open, D to mark done and S to snooze, instead of tabbing through every button.
+- Site desk: a click anywhere on a Site issue, Diary or Pour card row opens it, the arrow keys move between rows, and empty lists offer a button to add the first record (and Show all when a filter hides every issue).
+- Find anywhere (Ctrl+K) now also finds site issues, pour cards and orders to the contractor and takes you to them.
+- Pressing Back from a measurement book no longer re-reads the books and bills registers when nothing was saved.
+### Round 102
+
+#### Road walk-over on the phone
+
+- Phones can now record a road walk-over: walk the road and add points by chainage (width, surface, culvert, bend, tree, pole, village, photo, GPS). Notes are kept on the phone until sent, like other site notes.
+- The office reviews a walk-over in the Site investigation sheet. It shows the Quick road stretches, the culverts and the findings it gives, and nothing is written until the engineer accepts.
+- Accepting adds the culverts to a chosen road of the road register, appends the walk to the site investigation, and files the photos with their chainage and GPS. Each part is optional, and accepting again changes nothing.
+- One click loads the walk's stretches into Quick road. The estimate is still only created when the engineer presses Create, so no figure changes.
+- The phone page now says that location is sent only with a walk-over point, when you ask for it.
+
+#### Pavement design record
+
+- New Pavement design record on every estimate (More menu): type the 7-day traffic count, growth rate, design life, damage and lane factors with their code clause, and the subgrade CBR, and the design traffic in standard axles and msa is worked out for you.
+- Type the crust the chosen IRC catalogue plate gives and the sheet shows whether the estimate's own road layers meet it, in total and layer by layer.
+- The record prints as a Pavement Design Record for the technical sanction file; the scrutiny sheet before technical sanction shows a crust line (open when the estimate is short) and lists the record among the enclosures.
+- Nothing from the code is pre-filled and no estimate figure changes; the record travels with the work file and is available in Marathi.
+
+#### Quick pipeline estimate
+
+- New Quick pipeline estimate for water supply and JJM schemes, from the New estimate sheet, the New menu or the command palette. Enter pipe runs by pipe, diameter, class, length and trench, plus valves, valve chambers, a storage tank and house connections, and get a draft estimate with trench, sand bed, pipe laying and testing rows.
+- Trenches are measured from the width and depth you enter and split at the 1.5 m lift under the SSR excavation items. GI and PVC pipes use their SSR items, which already include excavation. HDPE, uPVC and DI pipes, valves, chambers and testing come in as non-schedule items at no rate, to be priced through their rate analysis before technical sanction.
+- Before you create the estimate, 'This pipeline gets' lists every item and quantity it will add. Only a new draft is made; no existing estimate or bill changes.
+
+#### Quick culvert estimate
+
+- Quick culvert: a new builder (New estimate menu, and a button in Culvert discharge & capacity that carries over the vents and their size) makes a priced estimate for a pipe, RCC slab or RCC box culvert. It measures excavation by lift, M-10 foundations, pipes or abutments and deck or the RCC box, steel by weight, wearing course and parapets, wing walls, floor, aprons and curtain walls from the typed design, skew included.
+- Quick culvert previews every item and the grand total while you type. It prices only from the chosen schedule. It can add the new culvert to a road of the Road register at its chainage and link the estimate as that road's construction work.
+
+#### Funding sources per work
+
+- Funding sources for a work: record how a work is funded from several sources (ZP cess, 15th Finance, DPDC, MGNREGA material component, MLA fund) with each source's sanctioned share, which must add up to the work's sanctioned amount.
+- New Funding sources statement under Statements shows each source's share, the amount spent on passed bills and the balance, by source and by work, with print and Excel; works whose shares no longer match a revised estimate are listed for review.
+- Funding sources are kept in the work dossier and recorded in the work's Activity; no estimate or bill figure changes.
+
+#### Road progress by chainage and layer
+
+- New 'Road progress…' button on Site work > Milestones: a chart of each road layer (earthwork, GSB, WBM, DBM, BT, CC) along the chainage, showing what is measured, what is still to measure, and where a layer lags the layer below it.
+- The road's From and To chainage can be typed on the sheet; if left blank they come from the chainages measured in the e-MB.
+- The same chart prints as a Road Progress by Chainage and Layer sheet on the work's letterhead, with a table of stretches still to measure and stretches behind.
+- Read-only: no estimate, bill or measurement figure changes. Marathi included.
+
+#### Annual road maintenance programme
+
+- New annual maintenance programme on the Road register: roads due for renewal are ranked by your own condition grade and last renewal, with a rough cost per road from your sanctioned BT road works when enough exist.
+- Type the year's allotment, tick the roads that fit, pick the surfacing and create a draft BT renewal estimate for every ticked road in one step; each draft is linked to its road.
+- The programme list can be copied, saved as CSV or printed on the letterhead, and is available in Marathi.
+
+#### Orders to contractor book
+
+- New book of orders to the contractor on the Site desk Diary: give numbered written orders (rectify, stop work, test, remove, start), with the date the contractor acknowledged each and the date it was complied with.
+- Print any order as an original plus a duplicate for the contractor to sign, and print a statement of orders not yet complied with, showing days overdue.
+- An order can be raised from a site issue or an inspection instruction and shows back on both; orders past their comply-by date appear in Reminders and the calendar export.
+- The orders travel with the work in dossiers and are kept as the record (an estimate with orders cannot be deleted); Marathi included.
+
+#### Safety nets
+
+- Pressing Create reports while a set is already being made now says so, with the start time, instead of claiming someone else changed the estimate. The button stays off until the run ends.
+- If a button's action fails and nothing else reports it, you now get one plain 'That did not finish, nothing was changed, please try again' notice, and a stuck working screen is released.
+- In the work programme, ticks you set for one activity are kept when you pick the next one, Save links all changed activities at once, and a search box narrows a long item list.
+- The Activity tab can show older events in steps of 200, so changes made months ago can be found, and the search note says how many events it covers.
+
+#### Speed and keys
+
+- The Letters, Legal cases, Inspection visits, MB custody and Review meetings lists now move with the arrow keys (Home, End, Page Up and Page Down too) and open a row with Enter, so Tab no longer stops on every row.
+- Site work (photos and milestones) opens faster on a big estimate: it no longer reads and recalculates every item just to show photographs and milestones.
+- Entering many measurement rows on a big estimate no longer re-checks readiness after every save: it waits until typing pauses and skips re-reading the estimate sources when nothing changed.
+
+### Round 101
+
+#### Site diary from the phone
+
+- The phone page can now record the day's site diary (weather, labour, machinery, work done, hindrance, work stopped) and a site issue with photos, and send it to the office like a measurement note.
+- At the office, a Notes from the phone panel on the Site desk Diary tab lists waiting phone diary notes. Accept enters the day in the diary, raises the site issue and attaches the photos in one step; Reject asks for a reason.
+- A phone diary note that is sent twice never doubles a day. A day the office already recorded is replaced only after you confirm, and the old text stays in the estimate Activity.
+
+#### Work programme and look-ahead
+
+- Programme sheet on Site work > Milestones: draws every activity as a bar against the work order date and the date of completion in force, with today and the completion date marked and each activity's progress inside its bar.
+- Each programme activity can now be linked to the estimate items it is measured by. A linked activity's progress is read from the measurement book (capped at each item's estimated quantity, weighted by item amount) instead of the typed Done %, and Time control and notices use it. Unlinked activities keep the typed figure, and no estimate or bill figure changes.
+- New printable three-week look-ahead for the Sectional Engineer: the activities still to run or overdue in the next three weeks, with the quantity of each linked item still to be measured and blank columns for hindrances and needs.
+- New printable weekly progress sheet: planned progress, progress at the start and end of the week, points done in the week and the item quantities measured that week.
+- Links between activities and items travel in a work dossier and stay with their activity when the schedule is saved; marathi wording added for the new screens.
+
+#### Mass-haul and borrow/spoil
+
+- Field levels book: a mass-haul diagram now shows the running total of cutting less filling down the chainage, with the balanced lengths and balance points marked.
+- Field levels book: a plan of movements says where cutting is carried to filling (forward or back), how much, and over what balanced length, and how much cutting is spoil or filling must be borrowed. Surplus and borrow are also given reach by reach.
+- Field levels book: an optional free haul distance (blank until the office fixes it) marks each movement as within the free haul or beyond it, and by how much.
+- The mass-haul diagram and the borrow and spoil plan print on the office letterhead from the levels book. Nothing in any estimate, rate or bill changes.
+
+#### Site safety and labour welfare
+
+- Site safety: record a safety and labour welfare round against your office's own checklist, with a result and note for each point, and raise any unsatisfactory point as a site issue.
+- Record accidents and near misses on site with photographs, and print a safety sheet for the division on the office letterhead.
+- Get a reminder when a work under execution is due its next safety round, once your office sets the number of days between rounds.
+
+#### Staff and machinery on site
+
+- Site desk Diary: a new 'Staff & machinery' sheet where the JE types the key staff and machinery the agreement requires for a work and ticks how many of each were on site on each diary day.
+- A printable 'Contractor Staff and Machinery on Site' shortfall statement counts the diary days on which fewer than the required number were ticked, ready to attach to a slow-progress notice or a hindrance claim; days not ticked are never counted as short.
+- Time control now shows how many diary days the contractor's staff and machinery were ticked short, with a link to print the statement beside the notices.
+- The staff and machinery records travel with the work dossier and are listed when an estimate cannot be deleted; Marathi is included.
+
+#### Drawing register
+
+- New drawing register on the measurement book: record each drawing's revisions, the date each was issued to the JE and to the contractor, who received it and which revision it supersedes; the sheet shows which revision is in force at site and prints as a Drawing Register statement.
+- The completion report now notes the drawing revision a site change was marked on and warns when a later revision had been issued, the revision had not yet reached the contractor that day, or the revision is not in the register; the as-built page lists the revisions issued to site.
+- The drawing register travels with the work dossier, and an estimate that has register entries is protected from deletion.
+
+#### Site investigation before the estimate
+
+- Estimates now have a Site investigation sheet (More menu on the estimate) where the Junior Engineer records what he found at site: existing condition, soil and water, access, utilities, trees, land and the approach road.
+- The same sheet keeps the lead measured to each sand, metal and murum source, with the date, who measured it, the GPS point and up to four photographs per source. The lead is a record only; it does not change any lead charge or rate.
+- The Site Investigation Report prints with the findings, the lead table and a photograph sheet with GPS, and is listed as an enclosure in the forwarding note before technical sanction once recorded.
+- The investigation and lead sources are kept in the work dossier and in the Activity record, and an estimate that has them cannot be deleted by mistake.
+
+#### Steadier screens
+
+- If the estimate you pick on the Measurement books page cannot be opened, the page stays on the estimate that is open. It tells you, offers Try again, and will not save the old estimate's contract details onto the new pick.
+- Reminders now says when the list could not be read, with a Try again button. It no longer says 'Nothing needs you today' when it simply could not look.
+- The Reports tab says when the report list could not be read, offers Try again, and stops showing 'Counting pages...' forever.
+- The Work queue says when blockers were read for only the first 20 estimates and links to the blocked list. A new Show more button extends the list beyond 100 rows.
+- Passing a bill, marking it paid, editing the cheque or voucher number and recording a Deputy Engineer's signature now keep the sheet open if the save is refused. The refusal shows inside it and what you typed stays.
+- When the app's service stops answering, messages now say so in plain words in English or Marathi instead of the browser's own text, including when saving a report as PDF.
+- Switching Sub division use on while Analytics shows Tender results moves you to the Portfolio tab instead of leaving that panel open.
+
+#### Say when a read failed
+
+- Register windows (legal cases, meetings, inspections, measurement books, letters, DLP rounds, damage, roads, proposals, village ledger, material forecast, staff) now say 'Could not be read' inside the window with a Try again button when the data cannot be loaded, instead of a toast that disappears over old rows.
+- The Dashboard milestone, completion-date and defect-liability cards no longer say 'Nothing waiting' when they could not be read; they say so with a Try again button, and 'Nothing needs attention' stays hidden.
+- When a save or load takes more than about 10 seconds the app now says it is still working and that typed entries are kept; after a minute it points to Help & support.
+- Ctrl/Cmd+S now saves the site type-back, scenario map, photo point, measurement book settings, damage accept and road record forms.
+- Opening one work's file and quickly another no longer lets the first work's slower answer replace the second.
+
+#### Faster on slow PCs
+
+- Typing in the Find and edit measurements grid is lighter on slow PCs: the recovery draft is saved shortly after you pause, and always before Review, when you switch subwork, and when the window closes or is hidden.
+- Going back to the Dashboard or Reminders no longer asks the server to recompute every reminder date each time; it reuses the last answer until something is saved, the day changes, or five minutes pass.
+- The bar bending schedule, the plan sketcher and the Civil Estimator import are fetched when first used instead of at start-up, so the first screen appears a little sooner.
+### Round 100
+
+#### Sub division use
+
+- New Sub division use setting (Settings, Office rules), on by default: hides the tender, bid capacity, work order, performance security and statutory remittance screens, the Tender results analytics tab and their reminders, because another team handles them.
+- Nothing is deleted: switch it off to see every screen and reminder exactly as before. Bills, contract dates, time control, ASD and EMD are not affected either way.
+- Hidden reminders are not counted in the Reminders badge, the dashboard totals or the Work queue.
+
+#### Field levels book
+
+- Field levels book: on Site work, Survey levels, type the survey as it is read in the field (backsight, intermediate sight, foresight, formation level, offset) and the program works out every level by the height of instrument method.
+- The book checks the arithmetic and the closing error against a closing benchmark, judged only against the allowable error your office types (left blank, it is shown but not judged), and names any unreadable line by number.
+- The levels draw the L-section, and levels read across the centreline draw each cross-section and work its cut and fill against the formation width and side slopes, side-long ground included.
+- Cutting and filling by reach come from the levels. They reach an earthwork item only after you preview the rows and add them, and the add is refused if the book changed since the preview.
+- The reduced levels and the cut and fill tables can be copied, saved as CSV or printed; the book is kept with the estimate and travels in the work dossier. Marathi included.
+
+#### Quality control tests due
+
+- The Tests strip on an estimate's Letters tab now shows how many site and lab tests are due so far on the quantity measured in the measurement book, how many are done, and how many lab tests are short.
+- New Print QC register button prints the Quality Control Test Register: tests due against tests done, with the quantity measured to date, for the Deputy Engineer to check at every bill.
+- Passing a bill now names any lab tests due but not yet reported or recorded; passing is never blocked, and the estimate's QC charge does not change.
+
+#### Monthly progress report and photo points
+
+- The Monthly Progress Report now has a second table per work with stages, quantities measured in the month from the e-MB, hindrances from the site diary, open site issues, and your own reasons for shortfall and target for next month.
+- New 'Reasons and next month's target' screen under the report's Statements menu to type those notes for each work and month.
+- Fixed photo points: name the spots of a work to photograph every month and tag photographs to them from the photo dossier.
+- New Before / During / After photo sheet per work and month, printed side by side, which also shows which points were not photographed that month.
+
+#### Material approvals and samples
+
+- Site material approvals: record which source or brand of sand, metal, cement, steel, bricks or pipes was shown, sampled and approved for a work, with the dates, the lab letter, the result and the engineer who decided, from the measurement book's More menu.
+- A material linked to an item warns when that item was measured before the material was approved. It is advice only and holds nothing back.
+- The register prints as a statement, travels in the work dossier, and is available in Marathi.
+
+#### Completion report, as-built pack and DLP rounds
+
+- New completion report and as-built pack for a finished work: sanctioned amount against final cost, time taken and extensions, tests, before and after photographs, defects, and the quantities as built with the changes the Junior Engineer marked on site and the drawings, printable as one pack. It changes no figure.
+- Changes made on site can now be marked against an estimate item or the whole work, with the drawing number, who marked it and when.
+- New defect liability inspection rounds: plan the Junior Engineer's visits at the months your office sets (for example 3, 6 and 11 months after completion) and a final joint inspection at the end of the defect liability period, each with a checklist and photo sheet from the inspection visit.
+- The final joint inspection is signed off by a named officer with the contractor's representative present, and a satisfactory result is refused while defects are uncleared; a printed DLP inspection report supports the security deposit refund, which is still recorded on the Security deposits screen.
+- Reminders now show DLP inspections that are due, and the closeout review asks for the final joint inspection sign-off before a work with planned rounds can be released.
+- Your office's inspection months and checklist start empty and are set from the DLP round settings; nothing is assumed.
+
+#### Before technical sanction
+
+- The Record technical sanction screen can now print a scrutiny sheet for the Deputy Engineer. It lists every check as passed or open with the item and the rule, the Appendix C-2 certificates, and the name of the person who checked it and the date.
+- The same print includes a forwarding note to the Executive Engineer, listing what is enclosed: the estimate, the C-2 certificates, each drawing and each saved calculation sheet.
+- Quality Desk findings that were already accepted show as accepted, with who accepted them and why.
+
+#### Keyboard comfort
+
+- The Work queue can now be walked with the keyboard: arrow keys, Home and End move between items, Enter fixes the item and S opens its Snooze menu.
+- After snoozing an item in the Work queue, focus stays on the next item's Fix button instead of being lost.
+- On an estimate's Items tab, Enter on a selected row adds a measurement, Home and End jump to the first and last item, and PageUp and PageDown jump ten rows.
+- On the Items tab, pressing the down arrow on the last item shown draws the next page of that subwork and moves on to it.
+- The Keyboard shortcuts window lists the new Work queue and Items tab keys, with Marathi wording.
+### Round 99
+
+#### Inspection visits and tour diary
+
+- New Inspection visits register in the Statements menu: record each visit of the Sectional Engineer, Deputy Engineer or Executive Engineer to a work, with the stages checked, observations, instructions with a date to finish by, and photographs.
+- An observation or an instruction can be raised as a site issue straight from the visit, and the visit stays open after saving so photographs can be added at once.
+- New Monthly tour diary print: each officer's visits in the month with the work, stages, observations and instructions.
+- New Inspection coverage print: the visits each officer made against the number the office requires for their grade, and the works under execution that were not inspected in the month.
+- Inspection settings hold the office's own stage names and visits required per month for each grade; both start empty and no number is assumed.
+- Open instructions with a date now remind you and show in the Work queue; an instruction raised as a site issue reminds through the issue only.
+- A work that has an inspection visit cannot be deleted until the visit is removed, and visits travel in the work dossier. No estimate or bill figure changes.
+- Marathi added for the new screens.
+
+#### Works pipeline board
+
+- Analytics has a new Pipeline tab. It follows every work from proposal to the end of the defect liability period, shows how many days each has stood at its present stage against your office's own norm, and names the stage holding the most delay.
+- The days between stages are also shown by taluka and by fund head, with the works that have waited longest listed first.
+- Your office types its own norm in days for each stage on the tab. The app assumes none, so nothing is called late until you set one.
+- A new statement, Works pipeline and delays by stage, prints from the tab or the Statements menu and exports to Excel. It only reads existing dates and changes no figure.
+
+#### Road, bridge and culvert register
+
+- New Road register under Dashboard > Statements: the office's roads, with length, width, surface, culverts and bridges, the last condition survey, the last renewal and every work done on each road.
+- Condition surveys use the office's own grades (typed once, none supplied), one record per road, culvert or bridge for each financial year.
+- Roads due for renewal use the upkeep intervals already typed in the Asset register; with none typed, nothing is shown as due.
+- The Road register prints per taluka and exports to Excel, with the culverts and bridges listed under each taluka's roads.
+- The Works map can colour roads by the year they were last renewed, with a legend.
+- Works are listed against a road when you link them by hand, when they belong to the road's physical asset, or when the work's name carries the road's class and number (shown as named only until you link it).
+
+#### Measurement book custody register
+
+- New Measurement Book Register under Statements: record each measurement book issued to a Junior Engineer or Sectional Engineer with its page count and issue and return dates.
+- The register shows pages used, pages left and skipped pages for every book, read from the e-MB entries, so nothing is typed twice.
+- Reminders warn when a book is near its last page or has been out too long. The office sets both limits, and with them blank no warning is given.
+- The register prints and exports to Excel, and is available in Marathi.
+- A staff member who holds a measurement book can no longer be deleted; mark them inactive instead.
+
+#### No more stuck loading
+
+- If the server copy or the template list cannot be loaded, the sheet now says what went wrong and offers Try again.
+- The measurement book's 'bills waiting' strips now say 'and N more' and open the full filtered list instead of silently showing six works.
+- The Work queue now says when more than 50 works are ready to bill and links to the full ready list.
+- The contractor recoveries statement, the security deposit register and the backups list now say 'still working' with a Try again button when they take unusually long.
+
+#### Keyboard comfort
+
+- Ctrl/Cmd+S now saves in the New estimate sheet, the New project wizard, the e-MB photo sheet, the site visit print sheet, the road drawing sheet and the contractor import sheet.
+- The measurement book entry strip scrolls sideways in one line, keeps the open entry in view, and has a Go to entry no. box.
+- Ctrl/Cmd+[ and Ctrl/Cmd+] move to the previous or next measurement entry, and are listed in the Keyboard shortcuts window.
+- Measurement book for an existing estimate: arrow keys move through the matches, Enter opens the highlighted one, and search also matches fund head and agency.
+### Round 98
+
+#### Work order and agreement desk
+
+- Contract details: record the agreement date and the date of commencement beside the agreement and work order numbers.
+- Contract details: new Performance security section for a bank guarantee or FDR (number, bank and branch, amount, issued on, valid till, released on), showing the amount the office percentage asks for and warning when less is lodged.
+- The dates are checked in the order a contract runs: the work order is not dated before the agreement, the work does not commence before the work order, and the performance security is released only after the work is completed.
+- New Work Order and Agreement Schedule prints on the letterhead from Contract details, in the PDF sets too. The order uses the office's own wording when set in Tender security settings, otherwise a marked standard text.
+- Tender security settings: new performance security percentage and work order wording, both starting empty.
+- Reminders now warn before a performance security guarantee or FDR stops being valid, until it is released.
+- No bill, tender or time-control figure changes: the work order date still drives time control, the ASD due date and EMD refunds exactly as before.
+
+#### Bid capacity and tender results
+
+- Tender opening now shows each bidder's available bid capacity (the office's factor times annual turnover, less the balance of works in hand) and whether the largest similar work meets the office's share of the estimate, beside the class and EMD checks. Both rules are office settings that start blank.
+- Contractors can now record annual turnover and the largest similar work.
+- The tender notice records which call of the tender it is, so a re-tender can be counted.
+- New Tender results tab in Analytics: bids per work, percentage quoted (average and spread), single-bid and re-tendered works, by taluka, fund head and contractor, with the contractors who win repeatedly, and an Excel workbook.
+
+#### Delay and legal cases registers
+
+- New Extension of time and delay statement in the Statements menu: one print for the Executive Engineer listing every work past its completion date or extended, with the days claimed and admitted, the cause of delay, who recommended and decided, and the works that overran with no extension on file. It ends with the causes of delay ranked by days lost.
+- New Legal cases register in the Statements menu: court cases, arbitration and contractor claims against a work, with the court, counsel, amount claimed, next hearing, reply due, order passed and outcome. A pending-cases print is included.
+- Reminders now warn before each hearing and each legal reply due, and the reminder opens the register.
+- A work's history print now has a Legal cases and claims section. Legal cases travel in the work dossier, and a work that has a legal case cannot be deleted until the case is removed.
+- Marathi added for the new screens.
+
+#### Review meetings and material forecast
+
+- Review meetings: record each monthly review or Collector meeting with its decisions and action points, each with an owner and a finish-by date, and print the minutes or the list of open points.
+- Open meeting action points with a date now remind you and show in the Work queue, and each person's Staff and charge review counts the points they own.
+- Material requirement forecast: see the cement, steel, metal, sand and other material all sanctioned and executing works need month by month, against what has been issued, and print it.
+
+#### Share templates between offices
+
+- Share your office's estimate templates with another office: save a template to a file, or send it to a paired office from Office contacts.
+- A received or imported template is always added as a new template of its own. Your own templates are never replaced.
+- The templates the other office sends wait under Incoming copies until you review them, and you can decline them.
+- Items in a shared template are priced at your own schedule when you start an estimate from it.
+
+#### Office contacts quiet when idle
+
+- Office contacts use far less idle CPU when switched On: the network listeners wake much less often.
+- The unread badge in the sidebar now checks a tiny count every 2 minutes while the contacts window is closed, instead of re-reading all contacts every 30 seconds. The full 30-second refresh runs only while the window is open.
+
+#### Faster on slow PCs
+
+- The 3D builder, Time control and Site clearances now load the first time you open them, so the app starts with six fewer files (about 109 KB less) to read on every launch.
+- The Dashboard and Reminders add up statutory remittances (income tax, GST-TDS, labour cess, royalty) in the database instead of reading every bill deduction into memory. The figures are the same and the sum is about twice as fast on a large bill register.
+- The speed-check tools now report memory held after start-up, what the page and the server do while idle with Office contacts Off and On, the time each reminder source takes, and the Work queue call.
+
+#### Office contacts, 3D builder, letters and clearances checked together
+
+- Office contacts: reopening the window now shows messages and copies that arrived while it was closed, and the message box lines up with the conversation.
+- 3D builder: Preview rows on a copy of an estimate or an imported work package no longer reports a row as changed when it is the same row.
+- Site clearances: the status choice shows its whole words.
+
+#### Time control, remittance, tenders, proposals, staff and damage register checked together
+
+- Measurement book: the Tenders box no longer pushes the contract and tender notice forms off the right edge on a narrower window. A wide list of bids now scrolls inside its own box.
+- Reminders and the Work queue: a statutory remittance reminder now shows its head and month in Marathi when the office works in Marathi.
+- Works proposals: the Taluka list and the place line show the Marathi taluka names in Marathi.
+- Staff and charge and the Work queue: the 'Everyone' choice of the person filter is now in Marathi, and the review's 'As on' date is shown as dd/mm/yyyy.
+### PDF signing: choose certificate works on the desktop
+
+- In 1.32.0 the Sign dialog's Choose certificate button failed before the file dialog opened, because the certificate file filter had a label the desktop window does not accept. The label now reads "Certificate files (*.pfx;*.p12)", and a test checks every file filter in the desktop app and its pages against the window's own rule.
+
+### Measurement entry: + Item from SSR
+
+- The measurement entry screen has a + Item from SSR button beside the item list, so a work whose estimate was not made on this PC (a project started in Measurement books) can be measured and billed. Search the work's own schedule by code or words, with a chapter filter and the arrow keys, type the quantity in the agreement and the item joins the work's list, ready to measure.
+- The code, description, unit and rate are copied from the SSR by the server, exactly as Add item does in an estimate; nothing is priced in the browser. A bill that measures more than the agreement quantity asks for the excess sanction order, as for any item.
+- A work that has an estimate of its own (items measured in the estimate) offers to propose the item as an extra item under Clause 38, which needs the Executive Engineer's order before it can be measured; the engineer can choose the item list instead.
+- An empty book now says "No items to measure yet. Add one with + Item from SSR." No figure, rate or rounding of an existing estimate or bill changed.
+
+### Printed reports fit the page
+
+- Royalty Statement: the Total row and the amount in words now span the label columns, so "Rupees ... (Say.)" reads on one line instead of one syllable per line; the amount stays in the last column.
+- Lead Statement and Material Consumption Statement: column widths rebalanced and header text wraps inside its column , so "Lead Charges/Unit", "Rate of Consumption" and "Quantity in Conventional Unit" are no longer cut off or run into the next header.
+- Statement of Excess and Saving (and the bill's), Theoretical vs Actual Cement Consumption, Diameter-Wise Steel and the MB Progress Statement: the description column now takes about a third of the width (set per column, fixed layout), numeric columns are compact and headers wrap. The sample's 24, 8, 10 and 12 page statements print on 3, 2, 3 and 3 pages. The Excess and Saving statement now prints on a landscape sheet, like the Deviation Statement, so the Remark column is no longer cut off.
+- Deviation Statement: wider description column and headers that wrap; figures no longer run into the next column.
+- Schedule B (alone and inside Schedule B and C): the Sr. No. header fits its column.
+- No figure, total, rounding or row changed.
+
+### Reports preview fits the pane
+
+- The report preview on the Reports tab now fills the space beside the list at any window size, full screen included. The page is no longer a narrow column or cut off on the right.
+- New Fit width / Whole page switch above the preview; Whole page shows one complete A4 sheet, portrait or landscape. The previous / next page buttons land on each sheet.
+
+### Round 97 (part 2)
+
+No bill, deduction or tender figure changes: challans are recorded against the amounts already cut, and the tender desk leaves the comparative statement and L1 figures as they are.
+
+#### Statutory remittance desk
+
+- Statutory remittances: record the challan that paid each month's income tax (TDS), GST (TDS), labour cess and royalty to the government, and see it against the amount recovered from passed and paid bills, with the difference and the state (Statements menu).
+- Challans cannot be edited or deleted: a wrong one is cancelled with its reason and stays listed. A repeated save is a no-op and a duplicate challan number is refused.
+- Due days for each head (and for March's amount) are typed by the office in Remittance settings. A month not remitted in full then shows up in Reminders before its due date.
+- New printable statements with Excel: Statutory remittances for a financial year, and the quarter's TDS return working (contractor-wise bills with PAN/GSTIN, amount recovered and the challans of each month) for preparing the return and the 16A certificates.
+
+#### Tender process desk
+
+- Tenders: record the tender notice (NIT no., notice, pre-bid, last date, opening date, bid valid till) in the Tenders box.
+- Tenders: each bid is checked on the opening date for registration class against the office's class limits, registration validity, EMD (and whether its guarantee lasts until the bid validity date) and the papers the office requires; abnormally low offers are flagged. Ranks and amounts are unchanged.
+- Tenders: new Tender Evaluation Sheet and Letter of Acceptance prints from the Tenders box; the letter uses the office's own wording when set.
+- Tender security settings: new Bidder eligibility section for class limits, the abnormally low threshold, required papers and the acceptance letter wording, all starting empty.
+- EMD and additional SD instruments record a 'valid till' date, and Reminders warns before a guarantee or FDR stops being valid.
+
+#### Works proposals register
+
+- New Works proposals register (Estimates register, More actions): record the works asked for by gram panchayats, ZP members, MLAs and the Collector before any estimate exists, with the letter reference and date, village, taluka, a rough cost you type, the site-visit status and your decision.
+- Choose a plan year in the register to see that year's annual plan shortlist in the order of priority you gave, with its total rough cost; print it or export it to Excel straight from the window.
+- An accepted proposal can be turned into a draft estimate in one step: type the estimate number and the draft opens with the work, village and Location filled in, and the proposal keeps the link to it.
+- The proposals window and its sheets are in Marathi too.
+
+#### Staff and section charge
+
+- Staff and charge: the office can now list its engineers and sectional staff and name one person in charge of each work.
+- A per-person review shows each person's late works, bills waiting for payment, measurements waiting to be verified and defects still open, and prints as the monthly review sheet on the letterhead (one person or everyone).
+- The Work queue now says who is in charge of each item and can be filtered by person or by works with no one in charge.
+
+#### Calamity and monsoon damage register
+
+- New Damage register (Dashboard, Statements menu) for calamity and monsoon damage: record each damaged road, culvert, bridge or building with village, cause, GPS, up to six photographs and a rough restoration cost.
+- Each damage entry moves through Reported, Accepted, Restored or Rejected; accepting one creates a draft estimate (no figures entered) that links back to the entry.
+- Print the Calamity Damage Statement for the Collector or export it to Excel; the restoration costs are labelled rough figures and rejected entries are not counted in the total.
+- The Damage register is fully available in Marathi and can be found from the command search.
+
+#### Comfort tools
+
+- The bar bending schedule you are building is now kept if the window is refreshed, and the app offers to restore it; it is cleared once sent to the steel item or saved as evidence.
+- Ctrl or Cmd+S now saves the draft in the test request letter window, the Edit tender window and the reminder editor, as it already did for lab results. It never issues a letter.
+- Survey levels now show a cut and fill table by station with Copy, CSV and Print, remember the levels you typed, and the drawing's labels follow the page language.
+- CSV files saved from the site calculators and the test letter register now have column headings and status words in Marathi when the office works in Marathi.
+
+### Round 97 (part 1)
+
+Builds on v1.32.0. No saved figure changes: the 3D builder writes measurement rows only through its preview and Apply, and only rows it made; delay compensation is only suggested.
+
+#### Office contacts
+
+- New Office contacts (account menu): pair with another office that uses this software and exchange help messages, ask for or send a copy of an estimate. It is off until you switch it on.
+- Works on the same office network (nearby computers are found automatically) and, for offices elsewhere, through a shared OneDrive or Google Drive folder; folder delivery is as fast as the sync tool, usually a few minutes.
+- Pairing uses a one-time code shown on one computer and typed on the other; only paired offices can write to you.
+- A copy you receive waits in Incoming copies; you review it in the usual import window and it becomes an estimate only when you import it, as a new copy that never replaces an existing one.
+- Messages show sent, delivered and read, unread counts appear on the menu, there is an activity list, and the whole screen is available in Marathi.
+
+#### Inward and outward letters register
+
+- New Letters register under Statements: enter each letter received (from the CEO, Collector, MLA, audit, an RTI application or a public grievance) once, with the work it concerns, who must reply and the date to reply by.
+- The register counts the days left or overdue for each pending letter and lets you record the outward reply number and date, which marks the letter replied.
+- A letter with a reply date and no reply now shows up as a reminder, in the Work queue and in the calendar export, and opens the register.
+- Print pending letters gives the Executive Engineer a one-page sheet of unreplied letters by reply date, with the overdue count and a total per kind.
+- Find anywhere now finds letters by inward number, sender, subject or reply number.
+- An estimate that has a letter in the register can no longer be deleted until the letter is removed.
+
+#### 3D work builder
+
+- New 3D builder: open any estimate as a 3D model of the building or road from the Items More menu, the Finished work card or search.
+- Walk through the model, orbit, pan and zoom, place, move, copy and delete parts, and undo or redo, with keyboard paths for everything and Marathi labels.
+- Quantities from the model reach the estimate only after you preview the rows and apply them; the preview shows what is added, changed or removed, and typed rows are never touched.
+- Sanctioned estimates show the model for looking only.
+- The 3D model is saved with the estimate and goes with copies and work packages.
+
+#### Lists you can copy and save
+
+- The Tenders register now remembers what you searched, which work you picked and how you sorted it.
+- Laboratory results remembers your search and the 'waiting at least' days.
+- Rate books remembers the reference-rate, user DSR and rate-compare search text.
+- Analytics Trends remembers the year you chose.
+
+#### Contract time control
+
+- Site work > Milestones > Time control shows planned progress against the progress recorded and the amount billed, with a month-by-month progress curve.
+- The office can issue slow-progress, show-cause and final notices to the contractor from the app. Each notice is kept in a register with the progress on the day it was issued and prints on the letterhead.
+- The compensation for delay is worked out from the office's own clause settings (rate per day and limit, as % of the estimated cost put to tender), and the Executive Engineer's order is recorded. None of these figures ship with the app.
+- The next bill offers the ordered compensation as a one-click Penalty line on the Recoveries pane. It is never added on its own, and no bill or passed figure changes.
+
+#### Pre-commencement clearances and site handover
+
+- Each work now has a Site clearances sheet in the Site desk diary: the office types the clearances the site needs (land, a line to shift, trees, permissions, a gram panchayat resolution, site handed over), and the engineer records each as given with a date, reference and name.
+- The office can keep its own standard clearance list and add it to a work in one click; nothing is pre-filled.
+- A clearance still open at the work order, or given after it, now shows up as a ready hindrance in the extension of time proposal, counted from the work order date, so a delay before the first diary entry can be shown.
+- The Site Clearances and Handover Record prints on the letterhead, and the work's file shows how many clearances are still open.
+
 ## v1.32.0 — Office parity (2026-10-22)
 
 Follows v1.31.0 (Office desk, 2026-10-21). This release carries rounds 94, 95 and 96. It is about office parity: an estimate made from now on is rounded the way PWD rounds, half up on the exact figure at every step, its Abstract closes with the QC TEST and ROYALTY sub-works and a TOTAL COST line, and the printed Recap, Rate Analysis, Lead, Royalty and Quality control sheets and the Excel workbook read the way the old office software printed them (any one statement, and the Labour abstract, can now be sent to Excel on its own). The Estimates register, the Dashboard lists, Payments, the Asset register, the Funding tab and the material account can be searched, sorted, copied, saved as CSV and printed, archiving several estimates can be undone, a double submit no longer files a case twice, the first Dashboard after a restart opens almost at once, and the Help centre has one search box. The Windows build now bundles the PDF signing library that 1.31.0 left out, so Sign... works after a normal install. Existing estimates, passed bills and issued outputs keep their figures: only an estimate created from 1.32.0 on (a new estimate, one made from a starter, a re-priced copy or one rebuilt from the V2223 import) rounds half up at every step and gets the new Abstract closing sections, while every existing estimate keeps its rounding rules and its Abstract exactly, and Make a copy, importing a work package and restoring a backup keep the rules of the estimate they came from. The Pune PWD SSR 2022-23 rates are unchanged. A work package saved from a new estimate is package format 7; 1.31.0 and older refuse it rather than import the estimate with different rounding, and a package from an existing estimate keeps its older format and opens everywhere. The SQLite schema stays at 24 (`SCHEMA_VERSION` and the file's version marker are unchanged). 1.32.0 adds 2 tables (`work_totals_cache` and `work_totals_inputs`), 6 columns (on works: `half_up_steps`, `abstract_qc_royalty`, `abstract_cess_lines`, `abstract_cess_percent` and `print_work_photo`; on review_cases: `client_key`), one index and 57 triggers (3 on each of 19 rate-book and reference tables, which count changes to them) to the office database, all created or added in place when the database is opened and defaulted or empty for everything already recorded, so no existing row or figure changes; no table or column is removed or renamed. The upgrade writes no `meta` key. Things to know: the Dashboard remembers an estimate's totals on disk only while its revision, the reference data and the program are unchanged, the Windows build of 1.32.0 has not been run or tested on a PC yet, signing with a Windows certificate or USB token is still marked as not tested on a real token, and some Marathi wording is a draft. The notes for the office are in RELEASE_NOTES_v1.32.0.md.
