@@ -1,5 +1,175 @@
 # Changelog
 
+## v1.34.0 — Fresh look (2026-10-25)
+
+Follows v1.33.0 (Sub division desk, 2026-10-24). This release carries rounds 108 to 110 (rounds 108, 109 and 110). It is about a fresh look and an easier install: a quantity watch while measuring, a bitumen and emulsion reconciliation sheet, a salvaged and dismantled material account, a pavement core register, a file movement register, a bench mark register, quick builders for street lights, roadside plantation, building electrification, road safety works and village ponds, finished registers, reports and records, a new application icon, a better installer (a Start menu folder, uninstall choices and .zpwork files), a one-click Windows builder, an About tab and a loading screen, grouped menus, drawings in more places, a tidier estimate window and more themes. Existing estimates, passed bills and issued outputs keep their figures and the Pune PWD SSR 2022-23 rates are unchanged. SQLite schema 24 is unchanged: 5 tables and 5 indexes are added in place, and no column.
+
+### Round 110
+
+#### Menus and Dashboard
+
+- The Statements menu on the Dashboard is now sorted under short headings and scrolls instead of running off the screen.
+- The New estimate menu has headings for quick builders, office works and imports, and each quick builder has its own small icon.
+- Dashboard cards keep their own height instead of stretching to match a neighbour, and the Needs attention buttons stay on one line each.
+- The Ctrl K list shows a different icon for bitumen, the 3D builder, road records, letters, money statements and the other actions that all used one pencil icon.
+
+#### Drawings everywhere
+
+- Quick culvert and Quick causeway now show their drawing at the top of the sheet, and the culvert sheet no longer opens with a warning before anything is typed.
+- Quick builder forms line up: inputs keep the same height whether or not a hint sits under them.
+- Pavement cores, salvaged material, file movement, bitumen and steel reconciliation and the bench mark register now have a drawing in their header.
+- Empty lists for letters, versions, site photos, material sources, reminders and bench marks show a proper drawing instead of a small icon.
+- On narrow windows the drawings beside page titles shrink instead of vanishing.
+- Estimate choices in register sheets show a clear focus ring when you tab to them.
+
+#### Estimate window
+
+- The Summary tab's money cards are compact, and the Grand total is a full-width green bar with the amount in words and the copy button, in dark mode as well as light.
+- Subwork cards on the Summary keep their names readable when the window is narrow, with the buttons on a line below.
+- Final amount, Rates & materials and Tests & royalty now line up with the other estimate tabs at the same left edge.
+- The estimate header keeps the whole 'Subwork: ...' chip visible before shortening the department line.
+- On Engineering tools and Site work the Find estimate box now sits beside the Estimate dropdown, with the label above both.
+- In Marathi the Views and Export buttons keep their names in registers on normal laptop windows, the header search word is a little larger, and the first subwork's 'Primary estimate items' line is translated.
+
+#### Themes
+
+- Dark mode now draws progress bars, ticked boxes and switches in a lighter shade of your colour, so they stand out from the cards for every accent.
+- The Appearance panel has a live preview of a button, link and progress bar, and lays the nine colours out in a neat 3x3 grid.
+- New Appearance options: Increase contrast, and Tinted background so the page picks up a hint of your colour.
+- Screens now use bundled Inter and Noto Sans Devanagari fonts, so English and Marathi text look the same on Windows, Mac and Linux. Printed reports are unchanged.
+
+#### Application icon
+
+- The program now has its own application icon: a blue rounded square with a plan sheet, a culvert arch and a measuring bracket. It shows on the program file, the Setup and Uninstall programs, the Start menu and Desktop shortcuts, the app window and taskbar, and the browser tab and phone page.
+- Windows groups all of the app's windows under one taskbar button named for the app, and the installer marks its shortcuts the same way.
+- The desktop window title now shows the open estimate number and the current screen, with a bullet when there are unsaved changes.
+
+#### Installer
+
+- Setup has a new look with the app's icon and colours, a licence page, and a Ready to install or Ready to upgrade summary before anything is written; an upgrade names the old and new versions and says your estimates and office data stay where they are.
+- The finish page names the backup made before an upgrade and offers Start now and Open the User Guide.
+- A ZP Works Estimator folder in the Start menu holds the app, the User Guide and Uninstall; Apps and features shows the icon, publisher, help link and version.
+- Uninstall asks whether to keep your estimates and office data (the default) or delete everything, and can save a verified copy of the office data first.
+- Work package files with the .zpwork extension open the Import dialog when double-clicked.
+- The program, Setup and the uninstaller carry version, company and copyright details in Windows Properties.
+
+#### One-click Windows builder
+
+- New one-click Windows builder: double-click 'Build ZP Works Estimator.cmd', pick main, improvements or another branch, see the exact commit, and get an unsigned package built in a fresh folder with its SHA-256 checksums shown. It never tags, signs, uploads or pushes, and it refuses experiment branches.
+- Added a short guide, docs/building-on-windows.md, for building on a Windows PC.
+
+#### About, loading screen and documentation
+
+- New About tab in Settings, also in the account menu: shows the version and its name, release date, the exact build, the database schema, the licence, the credits and the open-source components, so an office can quote it when asking for support.
+- A small loading window with the Pune Zilla Parishad logo now appears as soon as the application is opened and gives way to the main window when the program is ready, instead of showing nothing for several seconds on a slow PC.
+- The README, user guide, technical notes and the install, upgrade, signing and release-checklist pages now describe the icon, the improved installer, the About tab and the loading window, and a new page explains how to build the release on Windows.
+
+### Round 109
+
+#### Quick street light and high mast
+
+- New Quick street light builder under New estimate: enter the number of solar street lights and high-mast units for a village street or square and get a draft estimate with the pole and mast foundations measured at schedule rates.
+- The poles, masts, luminaires, solar panels, batteries, controllers, cables and earthing come in as non-schedule rows at no rate, ready for rate analysis before technical sanction. The sheet has its own line drawing and Marathi labels.
+
+#### Quick roadside plantation
+
+- New Quick roadside plantation builder in the New estimate menu and command palette: type the road length, rows of trees, spacing, pit size, species mix, tree guard and watering years to get a draft estimate
+- Pits are measured at the schedule's hand excavation items; saplings, soil filling, manure, tree guards and watering are left at no rate for rate analysis, so nothing is priced by guesswork
+- Preview shows the pit and sapling counts per species before the estimate is created; Marathi labels included
+
+#### Quick building electrification
+
+- New: Quick electrification in the New estimate menu. Type a school, Anganwadi or Gram Panchayat building's rooms with their light, fan and plug points, the main board, the cable run and the earthing, and get a draft electrical estimate.
+- The draft's rows are non-schedule items at no rate, room by room, ready for rate analysis, because the schedule has no conduit or point-wiring item. Light fittings and fans can be added on request.
+- The rooms can be taken from the Room schedule of an existing estimate, such as one made with Quick school.
+- The sheet also has a live preview, a drawing, a command palette entry and Marathi words.
+
+#### Quick road safety works
+
+- New Quick road safety estimate: list the school zones, junctions and sharp bends of a road by chainage and get a draft with rumble strips, thermoplastic marking, cat's eyes, road studs, sign boards, delineators and crash barrier measured place by place from the schedule's road safety items.
+- Speed breakers are included as a no-rate item to be priced by rate analysis, since the schedule has no speed breaker item.
+- The draft can be linked to a road of the Road register; heads of account are left for the office to enter.
+
+#### Quick village pond renovation
+
+- New: Quick village pond. Type the pond size, silt depth, bund and slope pitching, ghat steps, inlet and outlet channels and fencing, and get a draft talav renovation estimate from schedule items.
+- Quick village pond is in the New estimate menu and the command palette, with its own drawing and Marathi labels. Rates come only from the chosen schedule and heads of account are left for the office to fill in.
+
+#### Registers finished
+
+- Fifteen more site registers now have Copy rows, Rows CSV and Print rows: legal cases, review meetings, letters, drawings, royalty proofs, material approvals, stack measurements, safety rounds, monsoon readiness, proposals, village ledger, road register, audit paras, charge handover and damage register.
+- Review meetings, royalty proofs, stack measurements, safety rounds, monsoon readiness and charge handover records can be filtered with a find box above the table.
+- The command palette (Ctrl+K) now opens Legal cases, Letters register, Monsoon readiness, Test-check programme, Funding sources, Extension of time and delay statement, and the Works pipeline.
+- The New estimate 'Start from' strip now lists all the quick builders (culvert, wall and drain, causeway, bandhara, sanitation, well and solar, school or anganwadi, compound wall), each with a hint, in English and Marathi.
+
+#### Reports finished
+
+- Legal cases, letters, review meetings, instruments, material approvals, drawing register, royalty proofs and stack sheets can now be saved to Excel, exactly as they are on screen.
+- Orders to contractor, site clearances and the right-of-way register can also be exported to Excel from their dialogs.
+- The Reports tab has a new Site records group (cube register, material approvals, drawing register, road laying, royalty proofs, stack sheets, steel reconciliation, site investigation, pavement design, deflection survey, water design, area statement) and Checking remarks. They can be ticked into a saved PDF set and filed in the archive.
+- The final bill Closing pack now carries the material approvals, royalty proofs, steel reconciliation, cement consumption, drawing register and as-built changes of the work.
+
+#### Records finished
+
+- Phone notes now show their pictures with captions and capture times before you accept them, so you no longer accept blind
+- The whole-work file now carries issued letters with lab test readings, notices to the contractor, DLP defects, quality cases and phone notes with their photographs, and names the tables it still leaves out
+- An extension of time proposal that is still awaiting a decision can be corrected, and one that was not accepted can be withdrawn; the Activity log keeps who withdrew it and why
+
+### Round 108
+
+#### Quantity watch while measuring
+
+- Quantity watch while recording a measurement entry: under each item's quantity bars the entry form now says, in plain words, how much is measured to date against the sanctioned quantity and warns when this entry takes the item beyond the office's deviation limit, when one more entry of this size would, or when it passes 125% (Clause 38), so an excess is seen at the measurement and not at the bill.
+- Saving an entry, including a phone type-back that accepts site notes, reports the flagged items beside the entry's heading; the office limit comes from Settings > Office > Office rules and nothing is flagged until one is set. Advisory only: no bill or estimate figure changes.
+- Marathi wording for the Quantity watch.
+
+#### Bitumen and emulsion reconciliation
+
+- Bitumen and emulsion reconciliation sheet in the measurement book's More menu: each grade's receipt and use at site against what the measured BT work needs at the schedule norm, with shortfall, excess and wastage beyond the office's allowed percent.
+- Every bitumen or emulsion receipt is listed with its challan or invoice number; bulk converts in MT or kg, drums at the net kg per drum the office sets.
+- New office setting for allowed bitumen and emulsion wastage percent and net kg per drum, all starting empty; saving it changes no estimate or bill.
+- The sheet prints as a landscape statement and exports to Excel; the command palette finds it; Marathi throughout.
+
+#### Salvaged and dismantled material account
+
+- Salvaged and dismantled material account: from the measurement book's More menu, record each lot of old steel, doors and windows, pipes, paver blocks or road metal that dismantling recovers, with the quantity measured jointly, where it is kept, its condition and whether it was reused on the work, handed to the Gram Panchayat or sent for disposal.
+- The account sums each material: recovered, in stock, reused, handed over and disposed of, and prints as a Salvaged and Dismantled Material Statement for the final bill file; a record only, with no credit applied to any bill.
+- The salvaged material entries travel in the work dossier, each change is in the Activity record, and an estimate with an account cannot be deleted until its entries are removed.
+
+#### Pavement core register
+
+- Pavement core register: from the measurement book's More menu, record each core cut on a CC or BT pavement by chainage and side with the design and measured thickness, the density, photographs and remarks; the shortfall against the design thickness is worked out for you and the cores are summed up by layer so a short stretch is seen before the final bill.
+- A core is flagged only against your office's own typed tolerance on thickness shortfall and minimum density (CC and BT separately); nothing is assumed and no deduction is worked out.
+- The register prints with the stretch summary and the core photographs, travels in the work dossier, keeps every change in the Activity record, and never moves an estimate revision or figure.
+- Command palette: 'Open the pavement core register'. Marathi throughout.
+
+#### File movement register
+
+- File movement register: from an estimate's More menu, record each movement of the estimate file and of each RA bill between the JE, the DE, the Division office and any other office, as sent, received, returned with queries or resubmitted, with the date and letter number.
+- The register shows where each file is now, since when, how many times it came back with queries, and the days it sat at each desk; movements can be edited or deleted and every change is kept in the Activity record.
+- Statements > Files out of the sub division lists every file of every work that is at the Division or another office right now, longest out first, and opens that work's register in one click.
+- The File Movement Register prints on the letterhead, the rows copy and save as CSV, the register travels in the work dossier, and an estimate with movements cannot be deleted until they are cleared; Marathi labels included. No estimate or bill figure changes.
+
+#### Bench mark register
+
+- New Bench mark register in the Statements menu: enter each permanent bench mark and TBM once, with its RL, position, photograph, road and work.
+- The field levels book and the setting-out sheet can now pick a bench mark's RL from the register instead of retyping it.
+- The register shows which works' levels books start from each bench mark and protects those marks, and the roads and works that have bench marks, from being deleted.
+
+#### Measurement book and bill comforts
+
+- A measurement entry that was saved but could not be read back now says so and offers Refresh, so it is not recorded twice.
+- Typing a measurement line and then choosing another item adds the line first instead of discarding it.
+- Prepare bill and Withdraw draft say what happened and offer Refresh when the book cannot reload.
+- A Recap rate that could not be saved because the service did not answer keeps what you typed, with the reason and Try again.
+
+#### Screen comforts
+
+- Add item now opens straight away with a 'Loading schedule…' note, and pressing it twice no longer shows a browser error.
+- If the program was updated but the old one is still running, opening an estimate now explains in plain English or Marathi that it must be closed and started again, and that your data is safe.
+- On the phone page, clearing sent notes or removing a note now asks in the app's own confirmation sheet.
+- On the Dashboard, the arrow keys move between works in each Needs attention card, and a failed read of the waiting-for-sign-off list shows 'Could not be read' with Try again.
+
 ## v1.33.0 — Sub division desk (2026-10-24)
 
 Follows v1.32.0 (Office parity, 2026-10-22). This release carries rounds 97 to 107 (rounds 97, 98, 99, 100, 101, 102, 103, 104, 105, 106 and 107) and a few small fixes made alongside them. It is about the sub division desk: registers and statements for a work from proposal to the end of its defect liability period (proposals, damage, letters, legal cases, inspection visits, roads, measurement books, time control, a site diary from the phone, a work programme, a field levels book and site safety), quick estimate builders and design sheets for pipelines, culverts, causeways, sanitation, walls, wells, school buildings, bandhara, KT weir, check dam and percolation tank works and compound walls, road, building and structure surveys and programmes (with a road furniture inventory, a Benkelman deflection survey, and KML, GeoJSON and GPX), a rainfall and workable-days log, an instruments register and stack measurement sheets, a Sub division use setting (on by default) that hides the tender, bid, work order, performance security and statutory remittance screens without deleting anything, and steadier, quicker screens. Existing estimates, passed bills and issued outputs keep their figures and the Pune PWD SSR 2022-23 rates are unchanged. SQLite schema 24 is unchanged: 76 tables, 10 columns and 48 indexes are added in place.
