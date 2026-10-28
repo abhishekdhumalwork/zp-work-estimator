@@ -1,5 +1,526 @@
 # Changelog
 
+## v1.34.2 — Sub-Division review (2026-10-28)
+
+Released 28 October 2026. Carries the Sub-Division review work and rounds 112 to 116, with the portal BNR sheets.
+
+### Office queue and interface
+
+#### Bill Readiness and Office Review Queue
+
+- The Sub-Division desk brings together bill blockers, drafts ready for office check, payment follow-up, missing payment details, unbilled measurements and pending estimate review cases.
+- Search works and bills, filter by responsible person and status, see pending age and overdue reviews, and open the exact bill or review case. Counts include all matching records before the visible-row limit.
+- The queue reads existing records without repricing a work or changing its approval state. Estimate review remains separate from bill passing.
+- The desk uses the available window width, stacks its controls on narrow displays and includes Marathi labels, keyboard access and explicit loading/error states.
+
+### Measurement Book corrections
+
+- Saving a new measurement entry opens the next Record Entry with a blank measurement date. Rows recorded without dates remain separate; selecting an existing entry is the deliberate way to continue or correct it.
+- A visible Next Record Entry action returns from a saved entry to the new-entry sheet, retaining unsaved corrections as a draft. Failed saves and refreshes keep the current rows and prevent duplicate recording.
+- Bill and Certificate tabs expose Send MB back for correction and Scrap MB. The Bill tab lists the selected bill's entries; Certificate lists eligible entries of the work with their bill and page references. Sending back a draft-billed entry withdraws that draft and reopens only the selected entry; scrapping retains its cancelled number and history. Both actions record officer and reason and reject stale selections. Passed and paid bills are corrected through the confirm step described under Round 115.
+
+### Audit repairs (issues 1–11)
+
+1. Imported material rates now use the ordinary passed-bill guards and revision invalidation.
+2. Rollback checks data compatibility independently of schema number, preserves a verified safety copy and refuses an unsafe keep-data request.
+3. Manual sanction correction refuses linked and steel-derived quantities.
+4. Frozen works require the existing reasoned reopen before sanction correction.
+5. Recoverable deletion retains the original work correction history with remapped record identifiers.
+6. Every Complete file entry point uses the selected bill and the same core dossier, including its Completion Report.
+7. Corrected bill number, period, MB reference and remarks flow into the printed papers without altering frozen amounts.
+8. PDF cleanup recognizes real combined footers, retains image/vector content and renumbers retained pages.
+9. Form 52 closing content stays with its signatures where it fits; dossier table rules target the actual markup.
+10. In-memory register totals expire at the office date boundary.
+11. Release documentation separates source contents, build evidence, published assets and external acceptance; update requirements match the updater.
+
+### Document templates
+
+- Completion certificates use the recorded office number or the actual issue identifier. Unissued saved dossiers display their own dossier reference; an MB number is no longer converted into a certificate number. Previously issued copies remain unchanged.
+
+- Shared report styling is refined for finished office paperwork: legible typography, consistent headings and table spacing, restrained rules and clearer signature areas. Official form content and established page geometry remain intact.
+- The core Sub-Division Complete file remains Record Entries, Valuation, Abstract, conditional Form 58 and Completion Report. Other statements remain individually available.
+- Official rates, rounding and stored passed-bill totals are unchanged; SQLite schema remains 24.
+
+### Round 116
+
+#### Billing: payments, final bills and true-ups
+- Form 58 adds up through the Say Rs. line. 'Paid Rs.' prints what the payment ledger actually paid, with its vouchers, and a bill corrected after payment carries a remark with the officer, date, reason and the overpayment or refund.
+- 'Paid to date (net)' on the measurement book is the money actually paid. A part-paid bill shows 'Part paid ₹X of ₹Y', and Mark paid on it opens Record payment with the balance filled in.
+- A contractor's refund entered after a later bill already recovered the overpayment shows as a refund due instead of being recovered twice. An overpayment in a draft bill reads 'to be recovered (not yet passed)'.
+- The security deposit cannot be released below an overpayment still owed, and an overpayment can be adjusted against the deposit from the Deposit releases sheet.
+- When a correction empties a paid bill, the next bill still carries income tax, GST TDS, security deposit, royalty and the other repeating recoveries; bill checks warn if a head the previous bill recovered goes missing.
+- A final bill worth less than the RA bills already paid can be prepared and passed as a minus bill; Form 58 states the amount recoverable from the contractor in words.
+- Bills can be passed on their real pass order date, and payment dates, the Bills register, ageing and Form 58 follow it.
+- The final bill works labour cess and insurance again on the work actually done and refunds any excess taken on the tender cost.
+- Offices can choose to pay or recover the recorded price variation in the bill itself; it then shows in the Form 58 memorandum and the pass and payment order.
+- Advance recoveries stop once the advance is cleared, and the final bill takes the balance.
+- The Pass sheet asks to check the tender % and GST before the first bill is passed; after that they are read-only and corrected through Send MB back.
+- The work slip's probable further expenditure is the cost of work remaining, so the total never goes negative; on a final bill it is the booked outlay with the excess or saving against the estimate.
+
+#### Bill tab and measurement book screens
+- The bill guide keeps showing the next steps while a bill is passed and waiting for payment, and offers Record payment.
+- The bill's More menu opens inside the window again; the Bill tab is less crowded; an empty book says there is nothing to bill yet.
+- Issuing a completion certificate asks for confirmation. The final bill's Pass sheet gives each open closing item its own button.
+- Scrap MB and Send MB back grey out entries of older bills and name the bill to correct first.
+- The Measurement book (Form 52) print shows tests, photographs, MB page, the Deputy Engineer's name and date, struck-out pages with the reason, and a cover and carried-forward total for each MB.
+- Phone notes carry their capture date, and the number waiting shows on the book and the desk.
+- The MB No. box offers the registered books with who holds them and pages left. A book page cannot be used by two works, and entries cannot run past a book's last page.
+- Measurement imports accept chainage, deduction, side and bar columns. Removing a measurement check needs a reason.
+- On a Marathi screen the net payable in words is in Marathi.
+
+#### Portal BNR sheets
+- The Bill tab and the measurement book can make the portal's Bulk Normal and Bulk Steel record sheets, ready to upload, in the portal's own template.
+- The steel sheet gives the running metres under each bar size. Rows the portal cannot take are listed after export, never lost; over 1,000 records are split into parts.
+- A filled portal sheet can be checked in the book: every row is checked and shown first, and the rows are added as entries, one per date, all together or not at all.
+
+#### Billing papers
+- The bill's Print menu offers Abstract of bill, Valuation and Deviation statement workbooks, written line for line from the printed papers.
+- A running bill's Excess and Saving statement no longer counts work not yet done as a saving. The completion report says 'Limit not set' when no deviation limit is set.
+- Form 58 prints on its own from the Statements menu, no longer spills a line onto an empty page, and on a running bill says the work is in progress.
+- The check-measurement certificate ends with a signature block for each Deputy or Executive Engineer who checked; Form 58's passing order has a signature slot.
+- The closing pack names site record papers properly, and the bill abstract keeps each rate on one line.
+
+#### Road bill calculator
+- Saving the sheet no longer makes the next Add or Print fail with a false 'someone else changed this estimate'.
+- Spreading hard murum is billed at its own item; BT roads bill royalty and the quality-control tests their quantity calls for; 'Left in the estimate' takes off earlier bills and unbilled entries.
+- Warnings over 100 % and 125 % of the sanctioned quantity now cover Gram Panchayat, society and committee works too.
+- Print with statements adds consumption, concrete by grade, tests, labour, layers and earthwork; the laptop layout no longer cuts off the bill.
+
+#### New registers and screens
+- Hindrance register in the Site desk diary: cause, who is responsible, start, notice to the contractor, removal and countersignature. The extension of time counts every lost day exactly once.
+- Exchange folder: a JE saves every work in their charge to one dated folder in one step, and the DE takes it in on one screen that shows what is new in each work; the DE's checks go back the same way.
+- Analytics Timeline: every work under execution on one chart with the extension of time, percent measured, today's line and the defect liability period; prints on one landscape page and downloads to Excel.
+
+#### Automatic checks and comfort
+- Cube early warning for weak 7-day cubes or tests at the wrong age; carted trips over capacity or too close together are flagged; cement and bitumen in store show their age by lot; paint and floor finish are checked against plaster and the concrete bed. All limits start empty and are set by the office.
+- The Sub-Division desk opens at once on a slow PC, the Pass sheet opens sooner, and screens that fail to load show Try again.
+- G then W opens the Work queue and G then O the Sub-Division desk. Copy rows, Rows CSV and Print rows reach the remaining registers.
+- Closing the program asks about unsaved typed text in register and settings sheets.
+
+### Round 115
+
+The owner asked for a simpler, reliable way to make a bill, for Edit project in the complete file, and for Scrap MB and the other corrections to work on passed and paid bills.
+
+#### Bill this work: one guided path
+
+- New "Bill this work" guide shows which of four steps a work is at (Measure, Sign and check, Prepare the bill, Pass and pay), with one button for the next step. It is on the Overview, Entries and Bill tabs, in every estimate row menu and on the Dashboard.
+- "What's missing" lists exactly what stops a bill, with a fix button on each line. The Sub-Division desk now shows the same list, Clause 38 included.
+- A new entry starts with today's date and the next page. The next bill takes all signed entries by default with their count and amount, and you can untick any to leave it for a later bill.
+- Passing a bill is one sheet with the photo check and check measurement as summary rows, and it carries on to Record payment. Real photo findings need a tick before Pass.
+- After signing, the screen stays on the same bill. An item over 125 % shows its excess order box in the missing list with Go to item.
+- The road bill calculator can add and continue straight to signing and billing, and disabled buttons now say why.
+- "Edit project details" is beside every Complete file button and in the work file dialog, and Complete file warns about blank cover details first.
+- The technical sanction sheet fits a 1180 px screen and the MB No. box has a label.
+
+#### Corrections on passed and paid bills
+
+- Scrap MB and Send MB back for correction now work on a passed or paid bill too. Before anything changes, a confirm step names the bill and its state and shows its gross, recoveries and net payable now and after the correction; officer and reason are required as before.
+- A passed bill is reopened as a draft and worked out again from its remaining entries with the normal bill code; it is then passed again. A bill left with no entry is withdrawn as a draft is.
+- A paid bill stays paid: its cheque / voucher, date of payment, pass order amount and payment ledger are never changed. The difference between the amount paid and the corrected bill is shown on the bill; an overpayment becomes a recovery in the next bill, an amount still due is shown as advice.
+- Each correction is one Activity row with the bill's state and figures before and after. Stale selections and stale revisions are refused; a failure changes nothing. Scrapped entries keep their numbers struck out.
+- Review fixes: an older (flat) bill keeps its fixed recoveries (a penalty, water charges) as amounts when it is worked out again, and their "this bill only" / "every bill" marks. What a corrected bill was overpaid is worked out whenever the work is read, from the payment ledger as it stands and the recoveries later bills made, so a reversal entered later is never recovered twice. A passed bill with a part or reversed payment is now to be paid its corrected net payable (the register and the pass order follow). An overpayment larger than the next bill is recovered as far as that bill can bear and the rest carries forward. A price variation stored on the corrected bill is removed with a note to record it again; an issued completion certificate is named in the confirm; a reopened bill's history shows passed → draft.
+
+### Round 114
+
+The owner asked for a better interface using design skills. A design critique and accessibility review of the running app gave 46 findings; this round fixes them, keeping the macOS look, every drawing and the face sheet layout.
+
+#### Lighter glass and calmer motion for slow PCs
+
+- Windows and Linux PCs that are slow now scroll and open dialogs more smoothly: the sidebar, top bar and the curtain behind every dialog are no longer blurred live. Menus, toasts and the Find anywhere box keep the frosted look.
+- On a new profile, a weak PC (2 cores or fewer, or 4 GB or less) starts with Transparency off. It can still be switched on in Settings, Appearance.
+- The sidebar emblem animates a few times and then rests instead of looping all day. The thin loading bar only moves while something is loading, and the estimate title bar changes size without animating layout.
+- Tour programme: when a work has several pours or site issues due, the Why and Purpose cells list each reason once with a count (for example 'Site issue is due (2)') instead of repeating it. The Purpose box is a two-line field wide enough to read.
+
+#### Sub-Division desk: findable, keeps focus, clear errors, more rows on a laptop
+
+- Sub-Division desk: the Dashboard's 'Waiting for sign-off' and 'Ready to bill' queues now each have a button that opens the desk on the matching status tile.
+- Sub-Division desk: clicking a status tile or Refresh no longer drops keyboard focus.
+- Sub-Division desk: if office records fail to load, the earlier counts stay and the list shows a clear error with a Try again button.
+- Sub-Division desk: the status tiles and intro note are more compact, so more bills show on a laptop screen, and the filter buttons line up with the boxes beside them.
+
+#### App frame, Find anywhere, first launch, Dashboard, confirms and toasts
+
+- Find anywhere now lists matching estimates first, right after 'This estimate', and shows five rows each of screens, actions and tools, so your own works are no longer pushed out of sight.
+- The page purpose, office name and long estimate names are no longer cut off in the toolbar and the Estimates register on a laptop screen: the search shrinks to its icon the same way on every screen, the office button has a tooltip with the full name, and the estimate name can use two lines.
+- First launch is quieter: the Simple view note is one line, shows on the Dashboard only and goes away after two launches or once the office is set up, and Getting started becomes one row after the Welcome window.
+- The Dashboard leads with Recent estimates and Needs attention (side by side from about 1100px, Getting started below). When nothing is waiting, Needs attention shows one 'All clear' line instead of three zero rows, and the backup pill says 'Backup not verified'.
+- The Skip to main content link and the dark-mode count chips are readable (high contrast) in light, dark and deep black.
+- Deleting an estimate asks 'Delete this estimate?' with the work number and a short name in a neutral box, offers 'Keep estimate', and Esc or Cancel brings the keyboard cursor back to where you were; success messages are headed 'Done' instead of 'Saved'; a new office profile saves without the signer-names question.
+- Marathi small text has looser line spacing for easier reading.
+
+#### Estimate screens: Rates, Tests & royalty, Add item, Marathi names, Reports tab
+
+- Rates & materials now opens with the material rates and lead table (with its Find material box); the other cards are folded under 'Advice and statements', closed when they have nothing to show, with a jump row to Lead, Key materials, Test cover, Labour and Earthwork.
+- Key materials has Print and Excel menus instead of eight buttons, every Excel button says which sheet it saves, and a left-out item is named and opens when its code is clicked.
+- Tests & royalty shows the QC, royalty and K-factor figures and tables first; long test names end at a word; royalty codes are labelled.
+- Add item shows its 'Select a DSR item' message beside Cancel and Add item and keeps the keyboard in the search box.
+- A long work name wraps to two lines in the estimate header and is shown in full at the top of the Summary tab.
+- The statement preview window no longer shows an empty capsule, skips the section list for a one-section report and makes Print the main button.
+- Save errors now say what happened and what to do: Reload this estimate on a conflict, Retry on a server fault or dropped connection, one notice per failed request, and a message under the water-cement field.
+- The Reports tab fits more on a laptop screen: options in a menu, the check and last PDF set on one row, 'Not created' once per group, a scrolling report list.
+- Wording: '1 problem before reports', Sr. No. column header (अ.क्र.), '1 item' on subwork cards, 'of item subtotal' on share bars; the grand total caption and some small targets are easier to read and hit.
+
+#### Measurement entry, bill figures, bill disclosures and the Pass dialog
+
+- The measurement entry form now shows Length and Add as soon as it opens on a 1180x760 screen, and they no longer hide behind the footer on a 1440x900 screen.
+- The entry form header is a single line on short windows, and the description and quantity figures sit in a tidy strip at the bottom of the form.
+- The bill's four figure tiles line up properly, large amounts no longer get cut off, Net pay is the highlighted tile and every amount carries the rupee sign.
+- Each bill check section shows a small status chip when closed, saying how many things need checking, that all is OK, or that there is nothing to compare yet.
+- The bill section titles are bolder and darker, the arrows show up in dark mode, and Bill checks now come before the Valuation.
+- Passing a bill opens a clearer sheet titled 'Pass 1st RA Bill for payment' with the net payable large, a list of things to check, and a separate warning that passing locks the bill.
+- 'Authorised by' is marked as required and shows one clear message next to the box when left empty.
+- In the photo check, 'Back to bill' is now the main button and 'Pass anyway' is the quiet one; missing before, during and after photographs read as one line, and a Marathi sentence was corrected.
+- In the Auto-biller's 'Add to measurement book' dialog all notes now show in full and start with a capital letter, the two tick boxes are one, repeated difference lines are gone and the table buttons have short labels.
+
+#### Unfinished bills, save errors, units, Certificate tab, sticky action bar
+
+- Bills that are not finished no longer look final: an empty next running bill says nothing has been entered yet, and the auto biller warns when some items have no rate.
+- When saving a measurement entry fails, a clear red message appears beside the Save button with a Reload or Try again choice, and the cursor goes back to Save.
+- The consumption, earthwork, concrete, QC paper and ratio tables on a bill are easier to read: units are shown once, cubic metres are written properly, negative and short figures carry a warning mark, zeros are faded, columns line up, and remarks appear as small tags.
+- When every ratio on a bill is blank, a single sentence explains why instead of a row of dashes.
+- The Certificate tab has better spacing, the correction box now sits below the issued certificates, the pane has one consistent width, and Issue certificate turns into the main button once a date is filled.
+- The action bar at the bottom of the entry sheet no longer lets rows show through, the pop-up message stays clear of the Save button, all buttons are the same height, and Next record entry is greyed out with a hint until the entry is saved.
+- Removal pop-ups are now titled Removed, and button labels use sentence case.
+- Small buttons and checkboxes are bigger and easier to tap, and some faint text is now darker, including in dark mode.
+- Marathi translations were added for all the new wording.
+
+#### Site desk, diary, pour cards, reminders, tour programme, phone entry
+
+- Site desk Diary on a wide window: the calendar and summary sit on the left and the entry form beside them, so tapping a day shows its form at once; the form has a heading naming the day and starts at its first empty field.
+- Site desk Diary: the calendar is a single keyboard stop with arrow-key movement, and the seven secondary buttons (hindrance register, clearances, right of way, orders, staff and machinery, rainfall, extension) are one Records menu.
+- Site desk tabs now carry the chosen estimate from Diary to Issues to Pour cards, and an estimate is chosen automatically when there is only one (otherwise the most recently pinned).
+- A failed diary save now says in red what happened and what to do, offers 'Reload this day' when the day was changed elsewhere, and the notice is titled 'Diary not saved'.
+- Pour cards table: the element and place column is no longer squeezed, the test and curing dates take two lines, the verdict pill is short, and the search and buttons share one row.
+- Reminders: buttons stay at the right of every row, long titles wrap, the filters share one row, days are written 'due in 4 days' / '3 days late', and a High severity issue is shown in red.
+- Carted trips, Royalty proofs, Stack measurement and Road layer sheets: numeric headings are right-aligned over their figures; Royalty shows 'Nothing needed yet' instead of 'Covered' when no quantity has been measured.
+- Faster on small PCs: the frosted blur behind dialogs, headers and menus is removed or lightened, and a new profile on a PC with 2 cores or 4 GB of memory or less starts with Transparency off.
+- Phone entry page: 44px touch buttons, full-width Connect and Send buttons, aligned cards, a one-line title, and the Inter and Devanagari fonts are served on the phone.
+- Phone entry sheet: Switch on is the main button, Revoke pairing is quiet and asks first, the code timer reads 'Code valid for 29 more minutes'; the Field levels book now uses the same sheet layout as the other site sheets.
+
+#### PMGSY District Laboratory as a QC lab option, with report fields
+
+- Lab test results now record what every District Laboratory report carries: letter number and date, date the lab received the letter, job number, outward number, UTR, amount paid, work order number and date, sample received date and test dates.
+- A new Laboratory charges window in the Laboratory results panel holds the District Laboratory's fees and usual turnaround: cube test Rs 770 per set of 3, WBM metal and soil/murum tests Rs 770 per sample (marked as defaults to check), GSB job mix Rs 18,124. The office can edit them and restore the starting list; they never change Part B, the QC charge or any estimate or bill figure.
+- Samples waiting on the District Laboratory show the day the report is usually expected (0 to 2 days, 13 to 18 for a job mix).
+- The QC test register and the Quality Papers Statement print an extra Laboratory report details table, only when a result has details recorded; printed statements without it are unchanged.
+
+### Round 113
+
+#### Whole work file carries every record
+
+- A whole work file now carries the work's payments and vouchers, deposit release events, issued certificates, saved versions, contract baselines and tests recorded on e-MB entries, so the other PC receives the work complete.
+- A whole work file now also carries the material account, work slip figures, the closeout review (exceptions, attested papers, decisions, deposit release approvals), compensation-for-delay orders, review cases and their rounds, fund planner allocations with their scheme heads, Gram Sabha notes, village notice lines, physical targets and audit sweep explanations.
+- A copy made in the same office keeps the original's receipts and verification codes intact. A file whose QC tests this office does not have is refused before anything is written, naming how many are missing.
+- The export screen's 'Not carried' list now shows only the office-owned registers and working drafts; no figure, bill or earlier record changes.
+
+#### Work file return trip: take in only what was added on the other PC
+
+- A whole work file that comes back from the JE's laptop or the DE's PC can now 'Take in what was added'. Only the new e-MB entries, diary days, photos, tests and issues are added to the work already on this PC, so no second copy is made.
+- A preview lists what will be added, what is already here, and what is left out and why, before anything is written. The take-in is one transaction with one Activity row.
+- Bills, deposits, settlements and records already on this PC are never changed by a returned file. A clashing e-MB entry or issue number moves to the next free number.
+- Whole work files now carry their receipts, so the office a work came from recognises its own records when the work comes back.
+
+#### Clause 38 variation proposal and probable cost at completion
+
+- New printed Clause 38 Variation Proposal from the measurement book. It lists items measured beyond 125 % of their tender quantity, new extra items and estimate items to be substituted. It asks the office for the rate and basis of the excess part, and shows the net effect and the probable final cost against the sanctioned amount.
+- When proposing an extra item you can now name the estimate item it substitutes. The proposal then leaves that item's unexecuted balance out, and the link travels with exported and restored estimates.
+- The Work slip figures sheet shows the probable cost at completion beside the Ultimate anticipated expenditure box: every unfinished item at its sanctioned quantity and every excess kept, never netted. It is advice only and is not filled in.
+- Items running ahead of the work (measured share of their quantity well above the work's measured share) are listed beside the work slip. They are judged only against a running-ahead ratio your office types, which starts empty.
+- No existing rate, rounding, stored bill or printed statement changes.
+
+#### Marathi estimate papers for the Gram Panchayat with office Marathi item names
+
+- The office can type a Marathi name once for each item code of a schedule (estimate menu, Marathi item names), and the Marathi papers for the Gram Panchayat use it, falling back to the English text where none is typed.
+- A new Marathi Abstract and Estimate Summary prints the Abstract with Marathi headings, units and item names, and the cost summary (Part A, B, C and total) with the amount in Marathi words.
+- The Marathi General Description Note, the Gram Sabha summary and the Marathi village notices now list items by the office's Marathi names.
+
+#### Outward letters from the letters register, Marathi and English
+
+- Outward letters: from the letters register the sub division can now draft, number and print its own letters in Marathi or English: a reply to a received letter, forwarding of an RA or final bill, a completion intimation and a notice to the contractor.
+- The office writes its own wording once per kind and language in Letter wording; nothing is supplied. The work, the inward letter and the bill fill the blanks, and any blank left unfilled must be written over before the letter can be issued.
+- Outward numbers continue the same series as the laboratory test request letters, and an issued letter is frozen like those are.
+- One click on an issued reply writes its outward number and date onto the inward letter in the register; a Draft reply button on each inward letter starts a reply.
+
+#### Proposed grade line from the levels book
+
+- Field levels book: the engineer can now ask for a proposed grade line. From the surveyed ground, the program chooses formation levels along the road within the office's own maximum gradient, passes exactly through the fixed levels at culverts, bridges and junctions (a pipe is held at its top RL plus the office's minimum cover), and rounds each change of grade with a vertical curve of length K x A.
+- The proposal is shown with its vertices and curves, the L-section, cross-sections, cutting and filling and the mass-haul diagram and plan before anything is kept. Accepting writes the formation levels into the readings and nothing reaches the estimate; a book that changed since the proposal is refused.
+- The gradient limit, fit to the ground, K values for crest and sag curves and minimum pipe cover are the office's own figures and start empty; fixed levels are typed one per line. Marathi is included.
+
+#### Structure-wise completion register for package estimates
+
+- New: a structure-wise completion register for package estimates. List the culverts, wells, roads or toilets of one estimate with place, status, completion date, the items that build each and their photographs, and see how many are completed.
+- Each structure shows its measured percent read from the measurement book, and the whole list prints as a statement.
+- Physical targets now shows how many structures of each work are completed by the end of the chosen period; prints and workbooks are unchanged until a register is started.
+
+#### Works by ZP circle, Panchayat Samiti group and requesting member
+
+- New statement: Works by ZP circle. Lists the works proposed, sanctioned, in progress and completed, with cost and gross billed to date, grouped by ZP circle (gat), Panchayat Samiti group (gan) or the member who requested them.
+- The office types the circle, group and member for each Gram Panchayat in a map inside the statement; it starts empty and nothing is pre-filled.
+- Cost and billed figures are the Monthly progress return's own; proposals not yet turned into estimates are included at their typed rough cost.
+- Printable on the letterhead and exportable to Excel, with Marathi headings.
+
+#### Material stock verification: physical count against the ledger
+
+- Material stock verification: record the JE and DE's joint physical count of cement, steel, bitumen and other departmental material at site on a date, set against the Material account's balance as on that day, with a reason for every difference.
+- Accepting a count posts each difference to the Material account as a visible adjustment dated the count, authorized by the accepting officer; a count not yet accepted can be withdrawn with a reason.
+- The stock verification certificate prints with the count, variances, the adjustments posted and signature lines for the Junior Engineer and the Deputy Engineer.
+- A reminder interval the office types in the sheet (empty until set) shows when the next count is due.
+- The Closeout review shows a Material stock verified line for works that have a count (or, once the office sets the interval, material in the account); works without either see no change.
+
+#### Pace to finish and measurement book timeliness
+
+- Time control now shows the pace to finish: the value measured each month, the balance left, the days to the completion date in force, the pace needed against the pace so far, and the date the work would end at that pace. It works for a work with no milestones, and gives a verdict only once the office types a look-back in days.
+- Time control also shows how long entries took from measurement to being recorded, to the Deputy Engineer's check and to the bill. It names entries whose date is earlier than a lower-numbered entry, and names late entries only against the number of days the office types.
+- The next bill and drafts now warn when an entry on the bill is dated earlier than a lower-numbered entry in the measurement book.
+
+#### Openings deducted in the MB, and pours or layings on stopped or rainy days
+
+- The measured-ratio questions now also ask whether door and window openings are deducted in the measurement book, when the estimate deducts them from a wall, plaster or paint item and the book has measured the gross quantity and deducted none.
+- A new office setting under Thumb-rule ranges (empty until typed) names how many points the book's deducted share may fall short of the estimate's before the question is asked.
+- Pour cards, the road layer laying sheet and the site visit sheet now name a pour or laying dated on a day the site diary says work was stopped, the rain gauge reached the office's own limit, or no workers were recorded. A day with no record is never called bad, and nothing is blocked.
+
+#### Auto biller sections checked against the book, and more materials in the balance
+
+- Sections typed in the auto biller as a chainage range (such as 0+250 - 0+350) now keep that chainage in the measurement book, so the double-measurement check and the chainage strip see them.
+- The auto biller draft now says which sections were already measured or billed before, naming the earlier MB, page, entry and bill, so you can check before saving.
+- The material balance, its printed statement and Excel sheet now also cover soling stone, stone dust and quarry spalls (in cubic metres) and structural steel (in tonnes), each with its own allowed wastage percent that starts empty.
+
+#### Register sheets and quick builders: no lost entries, honest save messages
+
+- Older register sheets (carted trips, stack measurement, royalty proofs, material approvals, drawing register, road laying) now ask before Edit or Cancel throws away a half-typed entry, like the file movement, pavement core and salvage sheets already did.
+- When a record saves but the list cannot be re-read, those six sheets now say 'Saved, but the list could not be refreshed' with a Refresh button instead of showing a red failure.
+- Quick road, Quick building, Quick pipeline and Quick steel shed no longer look as if Create failed when only the list refresh failed. The result stays visible and the warning offers Refresh and Open estimate, so the estimate is not created twice.
+- File movement: opening another work from Files out can no longer leave the sheet showing one work while the next movement is recorded against another. Both lists are also read at the same time, so it is quicker on a slow PC.
+
+#### Sub-Division desk comfort, Find anywhere entries, quicker carted trips
+
+- The Sub-Division desk now answers status chips from the list it has already read, so switching between Needs correction, Ready and the others is instant.
+- While the desk reloads it keeps the previous list on screen, dimmed, instead of blanking it. A failed read offers a Try again button.
+- The Sub-Division desk stays open if a bill or review case will not open, so your filters and place in the list are kept. Its rows can be walked with the arrow keys and opened with Enter, and 50 are shown at a time with Show more.
+- Ctrl+K now finds the Sub-Division desk, Field levels book, Fixed photo points, Setting-out sheet, Spot levels and contours and Road curve setting-out, in English and Marathi. The Dashboard 'Needs attention' header has a Sub-Division desk button.
+- Adding a carted trip keeps the day's date, mineral, unit, source, vehicle capacity and recorder, clears only what differs per load, and puts the cursor on the vehicle number. The trips table has a find box and arrow-key rows.
+
+#### Low-end PC speed: dashboard refresh, calculator hub on first use, template quantities cached
+
+- The Dashboard lists (under review, awaiting approval, ready to bill, blocked) are no longer re-read after every estimate edit while the estimate window is open or another screen is showing. They refresh once when you come back to the Dashboard.
+- The Estimates register is redrawn when you open it, not after every edit made elsewhere.
+- The engineering calculators (steel, RCC design, site, field) load the first time you open Engineering tools, not at program start. About 650 KB less script runs at start-up on a slow PC.
+- The Check members panel for steel sheds (and its section tables) loads when a shed layout is first shown.
+- The shipped office templates' fixed quantities are stored, not recalculated at every start. Start-up is up to half a second faster on a slow PC, and every quantity is unchanged.
+
+### Round 112
+
+#### Materials, labour and machine hours from your own rate analyses
+
+- Materials, labour days and machine hours from your own rate analyses: items priced by their own rate analysis now show the cement, sand and other materials, the labour days by trade and the machine hours they need, in the estimate's Key materials card, in the bill and in the auto biller draft.
+- New printable Resource Take-off from Rate Analysis statement and Excel sheet, with the estimate and executed-to-date figures and the items behind them.
+- Items the take-off cannot count are listed, not guessed: an item with no rate analysis, labour not given in days, machinery not given in hours, and lines typed by hand in the auto biller.
+- Advice only: no existing estimate figure, rate or printed statement changes.
+
+#### Concrete account by grade and cube cover
+
+- The estimate now adds up its concrete by grade (M10, M20, M30 and so on) on the Tests & royalty tab: cubic metres allowed, measured and poured on the pour cards, with the cement bags, sand, metal and mixing water each grade needs.
+- It also sets the cube sample sets IS 456 asks for against the sets actually cast, shows the 28-day results still awaited and the lots not accepted, and says in words where a grade is short.
+- Every bill shows the same account beside its other figures, with this bill's quantity and the pours dated up to the bill, and warns before you pass it when concrete is measured with no pour card, more is billed than poured, or cube sets are short; nothing stops the bill.
+- The road bill calculator draft shows its concrete by grade next to the pour cards and the number of sample sets IS 456 asks for, beside the office rules' fixed cube count, which is left as it was.
+- The Pour cards tab shows the work's concrete account above the cards.
+- New printable Concrete Account and Cube Statement in the Site records reports, with an Excel sheet from the cards.
+- Mixing water for M5 to M20 follows the IS 456 maximum per bag of cement; for higher grades the office types its water-cement ratio, which starts empty.
+
+#### Quality papers due at each bill and material test cover
+
+- The bill now has a Quality papers due card that shows, for each test, how many are due on the work measured up to that bill, how many the bill pays in Part B, how many lab reports are in, how many the e-MB records, which are short and which are billed beyond those due, and which measured materials have no approved source. It prints as the Quality Papers Statement as at the bill and exports to Excel.
+- The estimate lists the papers the work will need: the tests, the material sources still to approve and the royalty proofs filed.
+- New Material test cover on the estimate counts the tests that the cement, steel by bar diameter, bitumen, sand, metal and murum that reached site call for, and one test of each source rule for every source in the approvals, lead sources and royalty proofs, against the tests requested, reported and recorded. It prints as the Material Test Cover Statement and exports to Excel.
+- The pass-bill dialog now also names lots received with tests short and sources not yet tested. It only warns.
+- The auto biller shows what the quantity calls for beside the tests the draft bills. The typed count and the charge are unchanged.
+- The site visit sheet prints a Material test cover section when tests are still short.
+- Part B, the QC charge, rates and every existing statement are unchanged.
+
+#### Material balance for sand, metal, murum, bricks, pipes and blocks
+
+- Material balance for sand, metal, murum, bricks, pipes and blocks: worked out automatically from the schedule quantities, the material account, the royalty proofs and the stacks measured.
+- The estimate's Key materials card now lists those materials with the quantity needed and the royalty payable on each mineral.
+- Each bill shows need up to the bill and for the bill, received, used and balance as on the bill date, and the royalty on the quantity no proof covers, with a link beside the Royalty recovery line; it is advice and changes no deduction.
+- The Auto-biller checks the murum a draft books against murum received at site, stacks measured and royalty proofs filed, and warns without blocking.
+- A new Material balance sheet with a printed Material Balance Statement and an Excel sheet; the allowed wastage for each group is typed by the office and starts empty.
+
+#### Measured ratios against the estimate
+
+- Measured ratios: steel per m3 of RCC, formwork per m3 of concrete, plaster per m3 of brickwork and excavation per m3 of concrete are now worked out on what has actually been measured and shown beside the estimate's own ratio, so missing steel or plaster is noticed at the bill.
+- The Summary tab of an estimate has a live Ratios card, and the Bill tab has a ratios disclosure with up-to-date and this-bill columns, a printed Measured Ratio Statement and an Excel sheet.
+- The bill's checks and the Pass dialog ask plain questions such as 'RCC measured 42 m3 and no steel measured', or name a ratio outside the office's typed range; they never block or change a figure.
+- The Auto-biller draft shows steel per m3 of RCC when it has an RCC slab with steel, and says nothing otherwise.
+
+#### Price variation inputs worked out for the bill
+
+- The Record price variation sheet now opens with P (this bill's Part A), the bill period, the shares and the factor already filled in. S is proposed from the materials ledger: each departmental material's quantity in this bill at its issue rate, shown beside the issues made in the bill period. The sheet also lists the indices still to be typed and compares the contract with the office's thresholds.
+- S is proposed only when every material can be worked out. A material issued at more than one rate, or in another unit, is flagged and left for the office. The engineer can override S and still presses Save; nothing is saved automatically.
+- The estimate's Analysis tab has a new Price variation card. It says whether the clause applies against the office's thresholds and lists the departmental materials issued so far.
+- Once a bill records a price variation, the Price Escalation Statement adds a Price Variation Working page. The bill sheet's working can also be saved to Excel. Existing statements, stored bill figures and the Clause 10CA sheet are unchanged.
+- The working also gives this bill's Clause 10CA quantities for each material, follows the estimate's material replacements, and lists any executed item it could not count instead of treating it as using nothing.
+
+#### Labour implied against labour engaged
+
+- The estimate's Analysis tab now has a Labour implied by the work card: the labour rupees of the items, the days from rate analyses by trade, the man-days at the office's typed wages and the average workers over the contract period.
+- A bill can now be checked against the site diary: the man-days its work implies are set beside the skilled and unskilled workers recorded on the diary for the bill's period. A bill is questioned only when the office has typed a tolerance.
+- New printed statement Labour Implied and Engaged for each bill, with an Excel sheet from the bill and the estimate cards.
+- The Auto biller preview shows the labour its draft implies.
+- The office's average daily wages and tolerance are typed on the labour card and start empty; nothing is assumed, and no existing figure or statement changes.
+
+#### Lead check against the measured lead
+
+- Lead check: the lead of the estimate's lead statement is now set against the lead the Junior Engineer measured at the site investigation. The Rates & materials tab shows, per material and measured source, the estimate lead, the measured lead, the lead charge per unit at each and what the difference would do to the lead amount on the quantity.
+- New printed Lead Check statement and Excel sheet in the Reports tab; the Site Investigation Report carries the same comparison.
+- Before technical sanction, the Record technical sanction sheet and the scrutiny sheet list every measured lead that differs from the estimate's.
+- Advice only: no lead charge, rate or estimate figure changes. Sources with no matching lead in the estimate are listed separately.
+
+#### Road layers laid against measured and design
+
+- Each road layer is now set against what was measured and the estimate's thickness. Daily laying records give the area and volume laid, compared with the quantity measured and paid, and the design thickness. The Road cross-section sheet shows each layer's design thickness, area, volume and binder per sq m from the schedule norms.
+- A stretch that was measured with no laying record over it is named, as is one laid deeper or thinner than the estimate, a spray rate far from the schedule norm, and a layer short of density tests. The last three need the office's own limits, which start empty.
+- The bill shows each layer's quantity up to this bill, this bill and balance beside the volume laid, and the findings join the Bill checks, for example 'GSB 0+200 to 0+450 measured 118 m3, laid 104 m3 on the laying record'.
+- The road bill calculator puts the draft's compacted-layer volume beside the volume the laying records lay over the same chainages, next to the stacks billed.
+- A new Road Layer Laying Reconciliation statement prints and exports to Excel. No existing figure, rate or printed statement changes.
+
+#### Earthwork balance
+
+- Estimates now show an Earthwork balance card: the earth dug, the earth filled back or spread, the murum supplied, and how much surplus is left to remove or still to bring, worked out automatically from the estimate's items.
+- The same balance appears in the bill (up to this bill, this bill, balance from the estimate), and a bill check warns when the earth filled up to date is more than the earth dug plus the murum supplied.
+- The readiness check now asks about filling that has no excavation or murum supply to fill it from.
+- The auto biller draft shows how much roadway excavation is available as fill beside the murum supplied, as a prompt only; the draft itself does not change.
+- A new Earthwork Balance Statement, with an Excel sheet, is in the Reports tab under Site records; it also notes where the levels book's mass-haul spoil and borrow disagree.
+
+#### Pour calendar
+
+- Each concrete pour card now records the cement (OPC or blended), and the app works out from it the day moist curing can stop and the earliest days the forms and props may come off, following IS 456.
+- Reminders now tell you when curing of a pour ends and when its side forms may come off, alongside the 7 and 28 day cube reminders, and the visit planner can use them as reasons to visit.
+- The site visit sheet lists the curing, form removal and cube dates of pours still running.
+- New Pour Calendar statement in the Reports tab: one row per pour with all its dates and a tick where the cube results are in.
+
+#### Release fixes
+
+- The About tab in the installed app now shows the release name and date, the licence text and the list of open-source components, because the package now includes them.
+- The Windows installer is much smaller again. Version 1.34.0 had accidentally packed the whole application into Setup.exe; it now carries only the installer, the release ZIP, the uninstaller and the WebView2 bootstrapper.
+- Physical Targets titles and file names are now tested for the whole year and each quarter.
+
+## v1.34.1 — Billing complete (2026-10-26)
+
+### Billing and e-MB workflow
+
+- Previous draft bills can now be corrected in one audited action: bill number and date, work period, MB reference and remarks. Passed and paid bills remain locked.
+- A billed MB in a draft bill can be scrapped through one safe correction flow that withdraws the draft, releases its other entries and preserves the MB audit trail. Passed or paid bills cannot use it.
+- The Sub-Division can correct a manually sanctioned item quantity with officer and reason recording; estimate-derived quantities and quantities behind a live draft bill remain protected.
+- An empty billing project can be deleted from Books through the existing recoverable delete flow; a project with an MB or bill is refused. Books opens on Measurement books, so estimate-only projects stay hidden until All projects is selected.
+- The Billing tab now guides the next office action after passing and payment, including a missing cheque or voucher number, and carries the payment reference and date consistently.
+- Paste from Excel's Excel template now opens the native Save screen with a populated `.xlsx` template.
+
+### Sub-Division complete PDF
+
+- The complete file is limited to the established office dossier: the bill's Record Entries (Form 52), Valuation, Abstract, conditional Form 58 and Completion Report. Supporting statements remain separately printable from Statements.
+- A dossier is post-checked before archival; blank and footer-only renderer sheets are removed, and a dossier with no printable page is refused instead of shipped.
+- Dense Form 52 pages use dossier-only compact spacing, and closing valuation content is kept with its signatures where the sheet permits. Standalone MB/report typography is unchanged.
+- Billing and Books use the available window width with container breakpoints for scaled displays, laptops and narrow windows.
+
+### Round 111
+
+#### Cement, steel, bitumen and emulsion consumption
+
+- Key materials card on the estimate's Analysis tab: the estimate works out by itself the cement it needs (bags and tonnes), the steel by bar diameter, and the bitumen and emulsion by grade (kg and tonnes), lists the items behind each figure and the items it could not count because the schedule gives them no norm, and exports the summary to Excel.
+- The estimate's Reports tab now lists the Cement, Bitumen and Emulsion consumption statements. The bitumen and emulsion ones are new and are laid out like the bill's.
+- Each bill shows the cement, steel, bitumen and emulsion it consumes: up to this bill, this bill, the balance left from the estimate and what the material account records as used, with buttons to print the statements, export to Excel and open the reconciliation sheets.
+- The auto biller's draft bill shows the cement, bitumen and emulsion it would consume before you add it to the measurement book, and warns (never stops you) when that is more than the material recorded as received at site. The figures match the bill statements it then produces.
+- Figures come only from the schedule norms already in the app. No existing estimate, bill or printed statement changes.
+
+#### Field file for sites with no signal
+
+- Field file for sites with no signal: from Phone entry, save one small page onto the phone that works with no network at all, for measurements, the day's diary, concrete pours, material received and a road walk-over.
+- The site engineer fills the page in on site, in English or Marathi, and saves a file; at the office, Load field file puts those notes with the other phone notes to accept, and loading the same file twice never doubles a note.
+- The page holds items and units only, no rates or amounts; photos are still added at the office.
+- Load field file also reads the file the phone page's Download unsent notes button writes.
+
+#### Work programme with critical path and baseline
+
+- Work programme builder: draft the programme of a work from its estimate stages in one click, with each activity linked to the stage before it and to its items
+- Set which activity must finish before another; the programme shows the critical path, the float of every activity and the completion date the links give, and refuses a circle of links in plain words
+- Type the quantity and the output per day of an activity and its days are worked out (rounded up); no output norms are shipped
+- Lock the first programme as the baseline and keep every later programme as a numbered revision beside it, with who saved it, a note and how many days later the completion falls
+- Print the programme with its critical path and the baseline and revisions
+- The extension of time proposal and the delay statement now quote the baseline and latest revision completion dates
+
+#### Carted material trips
+
+- New Carted trips sheet in the measurement book's More menu: the JE records each vehicle load of murum, metal, sand or soil with vehicle number, time, pass or challan number, source quarry and quantity.
+- The sheet adds trips up by day and source and sets each mineral's carted total beside the royalty passes filed, the stacks measured and the quantity the executed items need.
+- It flags a pass number used on two trips, a pass not filed as a royalty proof, a trip above its pass quantity, and totals above the pass cover or the need. Advice only; no bill deduction or royalty figure changes.
+- A day's trips of a mineral can be posted as one receipt into the material account, once per day.
+- Trip records travel in the work dossier and an estimate with trips cannot be deleted; the sheet has Marathi text throughout.
+
+#### Physical targets and achievements
+
+- New Physical targets and achievements screen under Statements: type what each work delivers and pick the item that measures it.
+- The yearly or quarterly statement compares each work's target with the quantity measured in the e-MB, grouped by scheme, taluka and kind of work, with a list of works carried over.
+- The statement prints on the office letterhead and exports to Excel, with Marathi labels; the measurement book and estimates are only read.
+
+#### Paper file and orders library
+
+- New Paper file: scan and file the papers of a work (sanction orders, NOCs, agreement copy, test reports, site letters) with their kind, date, reference and issuing office.
+- See which papers each stage still lacks by the office's own list of required papers, which the office can edit.
+- Print the index of the paper file, with a serial number and the page numbers of every paper.
+- New Orders and circulars library for the office, with the scan of each and a link to the one that replaced it.
+- Papers and circulars are found by Find anywhere, and the papers of a work travel with its work dossier.
+
+#### Site visit planner and tour programme
+
+- Inspection visits now has a visit planner: pick an officer and month and it suggests which works to visit and on which day, from cube tests and lab results due, instructions and orders falling due, site issues, defect liability and safety rounds, hidden work waiting to be cleared, and works not seen for a long time.
+- The officer ticks the visits they will make, adjusts the day and purpose, and saves the month's tour programme; nothing is saved until they do.
+- A planned visit turns into the inspection visit record on its day with one click, and opens ready for the stages and notes.
+- The Tour Programme prints by officer and date, with the village and taluka of each work and the purpose of each visit.
+
+#### Draft estimates in bulk
+
+- New Draft estimates in bulk sheet, opened from the New estimate menu, the Works proposals toolbar and Ctrl K. It makes the year's draft estimates at once from the annual plan shortlist (the accepted proposals still waiting for an estimate) or from a pasted list of villages, lengths and amounts.
+- You choose a Quick road type and width or one template, plus the first estimate number. The drafts are numbered in sequence and their name, village and Location are filled in.
+- A road with only an amount, or a proposal's rough cost, gets the longest length that amount pays for, and you can type or change any length in the preview.
+- Preview shows each draft's number, name, village, length and total, and the reason any row cannot be made. Nothing is created until you confirm.
+- Each draft is made exactly as New estimate makes one by hand, so its rates, rounding and totals are the same. A row that fails is reported and the others are still made. Drafts from proposals stay linked to them, and every draft records an audit entry. No existing estimate changes.
+
+#### Marathi notices for the Gram Panchayat
+
+- Marathi notices for the Gram Panchayat: from the Gram Sabha sheet you can now print an information board for the village, a progress notice for the Gram Sabha and a completion and expenditure notice, in Marathi or English.
+- The board shows the scheme, sanctioned amount, agency, start and completion dates, defect liability end and the SE and DE contacts; the progress notice shows the percent measured and the amount paid; the completion notice shows the actual quantities, the final cost and the after photographs.
+- The scheme, contacts, next step and the formal wording of the notice are typed by the office per work; whatever is left blank prints as dots to write in by hand.
+
+#### Bar cutting plan
+
+- Bar bending schedule now has a cutting plan: it cuts each bar mark from 12 m stock bars, longest piece first, and lists the bars to order per diameter with the waste percent and offcut. Plan by diameter or member by member; the stock length can be changed.
+- A printable cutting list for the bar-bending yard prints the cutting plan on its own.
+- Steel and cement reconciliation shows the scrap that cutting alone is expected to leave against the steel received, on screen and in the printed statement. The stock bar length is an office setting there, 12 m until changed. It is advice only and no estimate figure changes.
+
+#### Speed
+
+- Getting started no longer re-checks the whole office after every save when the card is hidden or finished; the progress is worked out when the card is shown and reused until something is written.
+- The Work queue answers filter changes and Show more from the data it already worked out, instead of rebuilding every reminder, readiness check and bill source each time.
+- Quick builders send one trial estimate at a time while you type and show 'Preview not available' when the service cannot answer, instead of hiding the box.
+- The start page is about 6 percent lighter: nine closed sheets (Quick sanitation, causeway, wall, culvert, Site investigation, Water design, Pavement cores, Salvage account, File movement) are drawn only when first opened.
+
+#### Comfort
+
+- Registers: if a saved File movement, Pavement core, Salvaged material or Bitumen setting cannot be re-read, you now see 'Saved, but the list could not be refreshed' with a Refresh button instead of an error, so nothing is recorded twice.
+- File movement, Pavement core and Salvaged material sheets now ask before a half-typed entry is replaced by Edit, Cancel or choosing another work's register.
+- Salvaged material and File movement lists have a find box with a shown-of-total count and arrow-key rows, like the other registers.
+- Quick builders: Enter in the last box starts the next row in the places, rooms, openings, species and wall section tables, and a removed row of typed values can be brought back with Undo.
+- Ctrl+K now finds the File movement register, Files out of the sub division, the full check, the comparison with the original estimate and the statutory remittances.
+
+#### Windows stability
+
+- Self-update no longer fails when the install folder has a Marathi or accented name.
+- The signature check in Settings and PDF rendering no longer break on unusual characters in PowerShell, Edge or backup output.
+- Saving the contact mailbox, and the installer, upgrade and release-build steps that swap files or folders, now wait and retry when antivirus or OneDrive briefly holds the file.
+- Release build scripts moved off the removed folder-delete callback; the one-click branch picker now handles non-English branch names.
+- Added a Linux test that catches the mistakes which broke the 1.34.0 Windows build: missing file encodings, spec files that do not compile, quote problems in the .ps1 scripts.
+
 ## v1.34.0 — Fresh look (2026-10-25)
 
 Follows v1.33.0 (Sub division desk, 2026-10-24). This release carries rounds 108 to 110 (rounds 108, 109 and 110). It is about a fresh look and an easier install: a quantity watch while measuring, a bitumen and emulsion reconciliation sheet, a salvaged and dismantled material account, a pavement core register, a file movement register, a bench mark register, quick builders for street lights, roadside plantation, building electrification, road safety works and village ponds, finished registers, reports and records, a new application icon, a better installer (a Start menu folder, uninstall choices and .zpwork files), a one-click Windows builder, an About tab and a loading screen, grouped menus, drawings in more places, a tidier estimate window and more themes. Existing estimates, passed bills and issued outputs keep their figures and the Pune PWD SSR 2022-23 rates are unchanged. SQLite schema 24 is unchanged: 5 tables and 5 indexes are added in place, and no column.
