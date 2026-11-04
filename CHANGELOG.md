@@ -1,5 +1,143 @@
 # Changelog
 
+## v1.35.0 — Finishing touches (2026-11-04)
+
+Released 4 November 2026. Carries the UI consistency pass, Round 121 (the whole-application review with its 102 items, the iPad layout fixes and the faster start-up) and a new application icon.
+
+### UI consistency pass
+
+A design check of 28 screens; 23 on-screen styling fixes, no figure, report or drawing changes.
+- Section labels on Getting started and the Road bill calculator are sentence case instead of tiny capitals; the calculator's Books / Bills / Road bill calculator bar fits its buttons, and its road kinds sit at even gaps.
+- One heading size across the Dashboard cards, the Rates tabs and every estimate tab; one button size per toolbar (Reminders, Letters, Versions, Site work, Engineering tools).
+- The Items toolbar no longer leaves the details button alone on a second row; Rates Compare headings sit over their amounts; the Reminders search box lines up with its filters.
+
+### Round 121
+
+A whole-application review of half-built features, placeholders and feature gaps kept 102 items; all are built here, together with fixes for layout bugs found while testing an iPad version. No figure of an existing estimate or bill changes.
+
+#### Bills and measurement books
+- Saving a measurement entry no longer reads the whole estimate again: the entry joins the open book and the next page comes up at once. A big measurement book loads about a quarter lighter because measured rows no longer repeat the item's full text and unit.
+- Bill actions (prepare, pass, withdraw, pay, type change) still re-read the work afterwards, but with a lighter read that leaves out the measured rows the book already holds.
+- A new entry on a page past the book's next page, or dated before the entry it follows, asks first, with Fix and Save anyway.
+- The bill Print menu can save the measured entries of a bill, and Form 58 with every recovery and the payment order, as Excel workbooks.
+- The Pass sheet can be copied or printed. The open points shown to the officer, including the notes that contractor checks and standard recoveries are off and the tender/GST line, are kept with the pass and listed in Bill history for a later audit.
+- The core bill papers print in Marathi: the measurement entries (Form 52), valuation, abstract, ZP Bill Form 58 and the check-measurement certificate, with the same figures as the English papers. Each has a Marathi choice in the bill Print menu, and 'The whole set of the bill in Marathi' prints the complete bill file. They show the bill number as 'पहिले RA देयक', Devanagari digits, Marathi recovery names, designations and units, and the office's own Marathi item names.
+- The Form 52 sheet and the single-entry print show 'Continued from MB / Page' for an entry that continues from another book and page.
+- A passed bill can be forwarded to the division from the Bill tab (More, then 'Forward this bill...', or the button on the 'Bill marked passed' notice); the letter opens with the work and bill already chosen.
+- The day the contractor's bill was received can be recorded in Edit bill details or on the Pass sheet. The Bills register shows the days from receipt to pass (and pass to payment), and the Payments outstanding statement shows the days from receipt to pass.
+- Form 65, the portal's Completion Certificate of Original Work, opens from the Certificate tab.
+- On a 1180-pixel screen the Entries tab shows the row where measurements are typed without scrolling, clear of the Save footer.
+- Small Bill tab fixes: the Bill type box shows its full text, the draft's edit window is called 'Edit bill details', and after a final bill the next-bill chip and tile offer 'Prepare a bill after the final bill' instead of another RA bill.
+- A notice of slow progress or an order of compensation for delay can be withdrawn with a reason, or corrected; the record stays with a visible line, the change is audited, and a withdrawn order no longer counts in the compensation due. When withdrawn notices or orders are all that stops an estimate being deleted, the delete dialog offers to clear them.
+- A printable Order of Compensation for Delay on the office letterhead, in English and Marathi; the notice of slow progress also prints in Marathi.
+- Contract details takes an optional work order / agreement amount. It prints on the Work Order, the Pass sheet and the AA/TS register, and a warning shows when it differs from the worked-out contract value by more than Rs 1. Bill figures and the cap are unchanged.
+- A failed quality case can be closed as 'Accepted at reduced rate' (percent or amount, authority, order number) or 'Rejected - to be removed/redone', each with a basis note. Both show on the Quality clearance sheet and the bill guide, and a reduced-rate amount is offered, never applied by itself, as a recovery on the next draft bill. Reopening a decided case keeps the earlier decision in the case history and on the print, and the printed Stage row and the decision wording follow the language of the screen or paper.
+- Refusals in the measurement book, bills, document letters, completion extensions, price variation, closeout and the quick builders, and those of this round's new screens, read in Marathi, with row numbers, bill numbers, dates and quantities kept. Messages on comparing a returned package, preparing a revised estimate, recording a technical sanction and comparing versions are in Marathi too, and the 'As sanctioned' version shows its name in Marathi.
+
+#### Building and checking an estimate
+- Checking remarks can be written about the whole estimate, not only one item (for example 'attach the soil report' or 'AA number missing'); answer, close, reopen and print them like any other remark.
+- In the File movement register, a file returned with queries can pick the open estimate queries it carries and take new ones typed one per line. The register shows which queries each movement carried, and the Checking remarks print says the query came back with that file.
+- Check before issuing no longer pushes the report list off the screen: a long list of reminders scrolls inside the card, and many of one kind (such as 60 items entered twice) fold into one line with Open all.
+- Record technical sanction no longer says 'Every check before sanction passed' above open reminders; it says how many reminders are listed below, and the button shows the count.
+- The rate analysis sheet fits a 1000-pixel window: Quantity, Rate and Amount come before Source, lead and carriage sit in a line under each material, and Additions is a simple two-column list. Its note points to the real place for labour and machinery rates (Rates > Labour & machinery > Import appendix), with buttons that switch to Full view and open that tab or My items.
+- On an item with several tags, the inspector header keeps the close button clear and wraps the tags on their own row.
+- Everyday Marathi site words typed in Add item (excavation, murum, bitumen, foundation, steel, pipe, fencing, stone masonry and about 150 more, with spelling variants) find the matching schedule items. When nothing is found and a word is one letter off, Add item offers 'Did you mean plaster?' with a one-click search. Add item opens with the cursor in the search box.
+- 'Apply lead to item rates' on Rates & materials, which changed nothing, is replaced by 'Lead in item rates': a read-only list of each item's base rate, the lead added and the rate used, with Copy, CSV, Print and Excel.
+- The Items footer's 'without measurements' count matches the Show filter, leaving out the steel worked out from the concrete.
+- A road schedule line can have its own side drain or wall section (for example a 0.45 m drain in the gaothan and a 0.60 m drain beyond it); the schedule-wide section stays the default, and the Chainage-wise abstract shows each stretch's own figures. Clearing Wall or Side drain to none in the source-edit sheet no longer causes an error.
+- Save as template asks for the category from a list (Roads & Bridges, Buildings, Water Supply and so on, or Other typed), starting from what the estimate holds; a building template now shows in Quick building and under Buildings in the category filter.
+- An estimate number cannot be reused by changing letter case: 't-1' is refused next to 'T-1' when creating, renaming, copying or importing, and the message names the estimate already using it.
+- Draft estimates in bulk opens on the current financial year (April to March) when no accepted proposal decides the plan year.
+- A saved version or an automatic restore point can be put back into the same draft estimate. The work number, sanction and group stay, a restore point of the current estimate is saved first, and Undo brings it back.
+- The preliminary estimate takes several kinds of work, each with its own size and rate from the office table, and prints the build-up in English and Marathi. Its rate table can suggest rows from your sanctioned works' cost per km or per square metre (once at least 5 such works are recorded); you add the year and circular yourself.
+- Settings > Office has a list of the office's own scopes of rate for the checker (scope name, the words in an 'including' phrase and the words a separate item uses), joining the five built-in scopes and found by Find a setting. The 'Reviewed, intended' reminder applies, and the table fits its box with the Remove button in view.
+- Fit to funds and Rescale can print or save to Excel the previewed list on the letterhead, in English or Marathi, showing each item's rounding step, quantity and amount before and after, the totals and the factor or ratio used. The History of an estimate made this way offers the same buttons, and the statement names the Sectional Engineer in English and Marathi.
+- Every quick builder sheet shows the next estimate number under the number box, the allowed range under each size box (also for rows added later), and lists all out-of-range entries together instead of one at a time.
+- Twelve quick builders have a Fill typical values button that fills blank boxes with a worked starting design for the chosen kind.
+- The Quick road page folds the rarely used Stretches, Chainage schedule and Fit to amount boxes away and keeps the grand total and Create road estimate in a bar at the foot. The CC Road type is named as it is built (WBM sub-base, M-10 and M-30 tremix 200 mm), and every quick builder opens the new estimate on its Items tab.
+- A Quick steel shed has a drawing: column grid plan, a typical truss section and the roof sheeting, saved to the estimate like the other structure sheets, and the 3D builder and Finished picture draw the shed with its trusses and roof.
+- The Full cost scenario window no longer shows a tick box that could never be ticked; a note says governed issue waits for the office's checked examples.
+- An estimate's Summary offers 'Mark as In execution' after the first measurement or bill, and 'Mark as Completed' after the final bill is passed or the completion certificate is issued. It is one click, changes nothing by itself, and the reason is kept in the estimate's History.
+
+#### Estimate papers, drawings and reports
+- The Marathi Complete Estimate Book can be printed from the Reports tab, with its own row in the Marathi notes group; it follows the Contents page, sketches and picture switches and lists the drawings after the Marathi papers.
+- The Rate justification, the Cement, Bitumen and Emulsion consumption statements and the Lead check print in Marathi, with the office's Marathi item names and the same figures as the English papers.
+- The Material Abstract no longer breaks the Unit column letter by letter: 'Cubic Metre' and 'Metric Tonne' print whole.
+- When PDFs cannot be made (Edge or Chrome missing), the Reports tab says the cause once, in the language in use, with the count and a folded list of the reports, and one button to print them from the browser.
+- A drawing in the estimate book can be replaced by its new revision in the same place with Replace file: title, drawing number, order and book tick stay, the old file is kept 30 days under Recently deleted, and an optional Revision (Rev A, B) shows in the contents and the Enclosures line.
+- The drawn sheets (building plan, structure, 3D model and road sections) can be printed in Marathi, with a Marathi title block and notes and Devanagari room names. The Marathi sheet preview fits the window and no longer shows '0 report sections'; A3 sheets print one to a page.
+- Drawings bound into the Complete Estimate Book carry a margin line with the work number, revision, enclosure title and the book page 'n of N'.
+- The 3D model's saved sheet prints door and window marks with sizes, door swings and room names from the room schedule, and wall names no longer hide behind openings. The 3D builder can add a sheet with the rear and left elevations.
+
+#### Site records
+- Quality cases have an 'All and withdrawn' tab that lists every case; a case withdrawn by mistake can be found there with its reason and brought back.
+- The Site desk Records menu has 'Phone entry and field file...' (also in Ctrl+K), opening the pairing code, QR and no-signal field file for the chosen estimate, with the waiting phone notes counted beside it.
+- Measurement notices: the sheet prints a register of every notice (date range, English or Marathi) and saves all notices to Excel; the notices table has Copy rows, Rows CSV and Print rows, and the delivered and attended boxes carry a visible hint.
+- Print diary takes a From and To date or the whole work, in English and Marathi (up to about five years in one print), and Export to Excel saves the days listed. The diary's summary tiles are one compact strip, and the Save entry row stays in view at 1366x768 and 1180 pixels wide.
+- Pour cards: the list of cards comes first with compact counters, and the grade table sits under a Grades fold that opens only when a lot is not accepted or a pour is not yet measured.
+- An open hindrance raises one reminder after the days the office types, whether it is not yet reported or still open (blank keeps it off). It shows in Reminders under Site, with its own filter, in the calendar export and in the Hindrance register. The Hindrance register also lists days marked 'work stopped' in the site diary that have no register entry.
+- Deleting a diary day, pour card, site test or test certificate offers Undo, and a 'Recently deleted site records' list brings back older ones; a deleted test certificate returns with its scan, kept for 30 days. A record is restored only into the work it was deleted from, and if the day or card number has been used again it says so and does not restore.
+- A Cleared stage inspection or a Complied order can be withdrawn with a reason, officer and date; the inspection goes back to waiting and the order to acknowledged, and the old result stays in the history, struck through in the register and printed papers.
+- The stage inspection, contractor order and joint measurement dialogs open with the new-request form first, give each row its own Photographs, Correct and Print buttons, and keep the print-range choices in a separate sheet. Asking for an inspection on a road estimate (which has no Floor or Grid) saves correctly.
+- Ready-made hidden-work stage rules (pipe bedding before backfill, drain or culvert foundation, formwork before concrete, masonry before plaster) can be added with one click; they stay off until added.
+- The no-signal field file can carry photographs: add up to 6 pictures to a note on the phone, and they arrive with their place and time when the file is loaded at the office. A big field file is sent in parts, and loading the same file twice never doubles a note or a photo.
+- A work with many photographs on inspection, safety and monsoon points can be saved as a work file, the photographs travelling as separate files. If a work file is still too big, the message says which part of the work is the large one.
+- A notice to the contractor that is withdrawn no longer raises a 'reply due' reminder.
+
+#### Office registers, letters and reminders
+- The Dashboard says how many reminders are overdue or due this week, and one tap opens the Work queue. The Work queue and Sub-Division desk buttons show how many items are overdue or due today, and in Simple view the bell shows the same number.
+- The Monthly progress report is a dialog opened from the first row of Registers and statements, in Simple view as well. Registers and statements gains Year-end liability, Expenditure forecast and DLP expiry rows, with matching Ctrl+K entries and a G then V shortcut.
+- New reminders: a file out of the Sub-Division longer than the days you set (the Files-out screen has an Excel button and a setting for the limit); an allotment that may lapse on 31 March once spending reaches the warning share you set in the Fund planner; a notice reply-by date that has passed; and a stock count that is due. Each has a filter on the Reminders screen, and those that depend on days the office types stay off until they are typed.
+- Reminder titles and details, and more of the activity history lines, read in Marathi when the language is Marathi.
+- Monthly returns can include the quarterly return of incomplete works, the site safety sheet, staff review, fund planner, monsoon readiness, works by ZP circle, village ledger and expenditure forecast, and each return can repeat every month, quarter or year. The returns pack and the 'Return not sent' reminder follow how often each return repeats.
+- Outward letters have Forward estimate, Reminder, Request and Other kinds, numbered in the same outward series (Other does not need a work). In Letter wording the field names are buttons that put the field into the letter at the cursor. The outward letter remembers who you last wrote to for each kind and starts from the Division address.
+- The office profile keeps the office address, phone, e-mail, who letters are addressed to, copy-to lines and the outward number prefix and start, and uses them on statements, lab letters and outward letters, in Marathi labels on Marathi registers. The Haveli office wording is a sample profile you can import instead of being built in.
+- The Letters register prints and exports the Inward register and the Outward register for a financial year, in Marathi or English, with replied letters and cancelled outward numbers shown.
+- Monthly notes show last month's target above Reasons with a Copy to reasons button, ask before changing month with unsaved notes, and have a Save all button.
+- The Fund head boxes offer your scheme heads and funding sources and warn when the words typed match none. In the Fund planner, 'Works under no scheme' has 'Add as a scheme' and 'Use scheme...' buttons to fix a mistyped head in one click.
+- Test-check programme, Site safety, Monsoon readiness, the road programme, Village-wise demand sheet, Paper file, Orders and circulars, Funding sources, Review meetings, Outward letters and Works by ZP circle open wide enough to show every column. The Material requirement forecast, Repricing scenario and Photo points windows open wide too.
+- Signer names and every 'Entered by' box offer the people in Staff and charge, and the Dashboard shows the Sectional Engineer from the staff list until a signer is typed. Staff and charge has a 'Joined / transferred on' date, printed on the charge handing-over report.
+- The New project window no longer picks a division and sub-division for you when your office is not set up; it asks you to choose them or set up your office.
+- Work details has boxes for Sanction estimate no., Departmental head and Estimated in office, which fill the matching lines of the face sheet.
+- Registers drawn in sheets that load on first use keep their Filter, Copy rows, Rows CSV and Print rows toolbar.
+
+#### Records, backup and work files
+- Save office settings includes your letter wordings, monthly returns list (with each return's repeat), office letterhead, days a file may stay out, laboratory rates, papers required at each stage, upkeep intervals, material sources and proposal criteria, so a new PC needs no retyping. The take-in preview shows each as New, Different or Same, and one Undo reverses the whole take-in; Undo refuses, changing nothing, when a later record hangs from a record it would remove.
+- Saving a whole work file or an exchange folder records who it was sent to. Each work gets a 'Work file sent' line in Activity, you can add a Sent line to the File movement register in the same step, and 'Last sent' remembers sends even after the exchange folder is deleted. An exchange folder can print or export a Forwarding list showing what went on the pen drive, to whom and when.
+- Taking in a returned work file or exchange folder makes a checked backup first; the result offers Restore, plus an Undo that removes just the records that take-in added.
+- A copy of a whole work file or exchange folder can be saved straight onto a pen drive from the 'saved' message and from the Import and Take-in lists; the copy is checked against the original and never replaces anything already on the drive.
+- Backup & recovery has a 'What is using space' section with the sizes of the database, backups, office packages, work files, exchange folders and Reports, the free space on the drive and the biggest works. Clean up... shows only where a keep-newest number is set and more than that many are kept; otherwise a hint says to set 'Keep the newest saved files' in Settings, Backups. A low-disk-space warning offers a button that leads to Backup & recovery.
+- The Cloud backup tab tells an office with no cloud account that it needs none: choose a OneDrive, Google Drive or pen-drive folder as the Second copy folder, with a button that opens that setting.
+- When an estimate cannot be deleted, every blocking record shows which screen clears it, with an Open button that goes there (the Estimate settings sheet closes first). A reminder you typed yourself no longer blocks deleting an estimate and goes with it. The project delete confirmation reads 'Delete this project?'.
+- In Marathi, the exchange folder lists and their Status filter show the translated status words instead of the internal lower-case ones.
+
+#### Help and learning
+- The Dashboard says the estimates could not be read, with the reason and Try again, instead of offering to create a first estimate when the list fails to load.
+- The Registers and statements window no longer says 'No register matches' in Simple view when the register exists in Full view: it says how many more are in Full view and switches on one click.
+- Getting started no longer shows the backup step as done while the Dashboard says the backup is not verified, and shows the backup date and time in local time.
+- The user guide's New estimate menu, sidebar, Appearance and Getting started chapters describe the current program, Known limitations is titled for the current release, and the introduction no longer quotes a wrong step count. The Site desk, Reminders, Analytics and Assurance guides cover the quality and material records added in recent rounds.
+- Guides open with a contents list and a find box, drop the '0 report sections' badge, and follow the Dark setting on screen.
+- Help search looks through the text of the guides, shows the matching sentence under each hit and lists guide sections before keyboard shortcut rows.
+- The Marathi 'Start here' page covers Simple and Full view, Ctrl+K, the Site desk, measurement notices, Reminders, the Registers window, the JE and DE exchange folder, and the language and print language switches (marked for a Marathi reader to check).
+- Learning centre: ten more item families have a picture (steel bars, structural steel, pile, excavation, filling, column, beam, footing, door or window, pipe), drawn as schematic layers marked 'to be checked by the engineer'; only a count item and a generic box have none.
+- The New estimate menu no longer scrolls on a laptop screen: the common quick builders stay listed, the rest sit in a 'More quick builders' fold grouped as in the New estimate sheet, and Imports and the JE and DE exchange folder stay in view.
+- If the screen and the service disagree, the warning says to close ZP Works Estimator and open it again, or install the latest Setup; the developer command shows only on a developer copy, and it is translated.
+
+#### Speed on office PCs
+- 89 closed windows are now drawn only when first opened: 39 rarely used ones (certificates, road register, preliminary estimate, pavement design, photo points, MB register and others) and 50 more (the closeout review, 3D builder, audit paras, remittances, paper vault, DLP rounds, outward letters and others), with the same fields, tabs, Marathi and table tools.
+- Eight more screens (Bill settings, rate technique for the ticked items, rough cost, contractor import and merge, PDF signing, scrutiny basis, extension of time proposals, site records export and import) load the first time they are used instead of at launch.
+- Page elements built at start-up fall from 18,267 to 16,088; dialogs built at start from 181 (227 at 1.34.3) to 131; the main page from 1.47 MB at 1.34.3 to 1.14 MB. The first screen is about 5 to 8 percent faster on a slowed CPU.
+- The Close buttons of the moved windows, the Office rules window, the Add to measurement book window and the Standard recoveries list close properly, and every window drawn on first use is translated into Marathi.
+
+#### iPad and narrow windows
+- On the estimate title bar in narrow windows and iPad portrait (761 to 1000 px), the work name has its own line instead of shrinking to a letter or two, and the header drawing steps aside so the status pill stays clear.
+- The report preview on iPad shows the whole page, not only its left part. Other browsers show it as before.
+
+#### Left for the next round
+- Drawing the five core editors (work, measurement book, profile, work settings, measurement dialogs) only when first opened.
+- Joining the script files into one or two files when a release is built.
+- Bill actions (prepare, pass, withdraw, pay, type change) still re-read the work after the action, only lighter now.
+
 ## v1.34.3 — Sub-Division complete (2026-10-31)
 
 Released 31 October 2026. Carries rounds 117 to 120, the Completion round, the Estimate module round, Work dossier delete and the Review-two round with the RA / Final bill switch.
