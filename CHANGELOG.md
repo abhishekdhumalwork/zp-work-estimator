@@ -1,5 +1,144 @@
 # Changelog
 
+## v1.36.0 — Polish and papers (2026-11-05)
+
+Released 5 November 2026. Carries Round 123 (a user-interface polish round, with the window fit and a repaint fix) and Round 122 (92 review items and 10 queued items, followed by a second review). No figure of an existing estimate or bill changes.
+
+### Round 123: UI polish
+
+Three review-and-fix passes over the screens fixed 104, 69 and 56 on-screen issues; no figure, report or drawing changes.
+- Sidebar tips are no longer clipped and show only where the sidebar is icon-only. Menus near the left edge open inward, and the Items More menu scrolls inside a short screen.
+- Dialogs share one chrome and one tab style, with consistent footers, close buttons (borderless in dark mode) and plurals. Registers, the work list, the Site desk, DLP and milestone toolbars have 24 px hit targets and 32 px controls and line up.
+- The Dashboard's crore totals no longer wrap in the middle of a number, the notification panel closes when focus leaves it, and the scrutiny tools fit one row.
+- The contractors register shows its Edit and status columns whole, the diary Records menu stays on the screen, the diary strip and toolbar no longer clip or squeeze, and an empty measurement-book row spans the table.
+- Dark-mode fixes (Done pills, close buttons) and Marathi fixes, including the engineering tool tables and wording; Marathi keeps the term ठेकेदार for Contractor.
+- The old 'APP:01 DB:17' footer stamp is gone from every report.
+- The window sizes itself to the screen it opens on (800 x 520 at the smallest), so it fits a 1366 x 768 laptop at 125 percent, and report windows do too. Restoring the window down from maximised places it in the middle of the screen.
+- Restoring the main window from the taskbar after minimising it at its normal size no longer leaves a blank page (a repaint problem that was also in 1.35.0).
+
+### Round 122
+
+A review of the whole application kept 92 items and 10 queued items; all are built here, and a second review of the result fixed what it found. They are grouped by the work an office engineer does.
+
+#### Quick builders and new estimates
+- New estimate and the quick builders (road, steel shed, building, pipeline and the sheet builders such as culvert, wall and toilet block) take an optional Village and Gram Panchayat, kept with the new estimate, so the office material source picker, the village ledger and the Gram Sabha papers find the village without retyping it.
+- Quick building and Quick pipeline show each item's amount and the Work portion, Contingency, GST and Grand total before you press Create, and the previews list the recap charges so the lines add up to the grand total. Quick steel shed shows the cost on its layout line.
+- Quick causeway, wall, road safety, school, compound wall, electrification, bandhara, pond, toilet block, well, street light, plantation and culvert no longer ask the server for a price on a blank sheet; they say 'Fill typical values or type the sizes' instead of showing an error.
+- Create estimate, Fill typical values and the live total of those 13 builders sit in a bar pinned to the bottom of the window, so Create is always in view. The Road curve sheet no longer sends a failing request when it opens.
+
+#### Add item and the schedule search
+- Searching for brick masonry or stone masonry puts the new-work masonry items ahead of inspection chambers and dismantling items, and paver block, culvert and the Marathi words for platform find the right schedule items.
+- The 48 schedule items that showed a bold 'nan' heading in Add item show their real description.
+- Add items from a code list accepts a line with a space between the code and the quantity, such as '21.01 12', and explains clearly when a code and quantity are run together.
+
+#### Pricing and rates
+- Price the non-schedule items is one sheet, opened from the Items tab or the Create notice, that takes the rates of every custom item still at Rs 0. Each row has its source or quotation note, a Build up the rate button and a running total, and all the rates are saved as one change with Undo. The source column is easy to read.
+- A non-schedule item's provisional rate is cleared with Mark rate reviewed, from its item details or its rate analysis sheet; History records who reviewed it, the date and the basis. This unblocks Create PDF set, and a later change of the rate, unit or text makes the rate provisional again.
+- A charge typed on the Final amount can be edited: Edit reopens the Add charge sheet filled in, and the change is recorded in History.
+- Rate analysis accepts rates typed with thousands commas (1,200 or 1,20,000), can save its percentages as the office default and open the Office profile, and Check before issuing reminds you of a typed line that has no source.
+- Saving a lead tells you the material, the distance, the charge per unit and how much the estimate total changed.
+- Fit to funds: 'Set all... May shrink' keeps counted items such as a name board at Keep; the preview flags lines that fall to nothing or below a quarter of their quantity, with a Drop button, and warns when the shrinking items are cut below a quarter. Make the draft copy can move the AA group to the copy, so the AA / TS register and the package balance count the fitted estimate only.
+- The Fund planner's 'Copy schemes from last year' brings the previous year's scheme heads and notes into the chosen year with a blank allotment, shows the list before saving and skips heads already there.
+- The Steel shed design package no longer shows a dead 'Update estimate from approved schedule' button or internal codes; it uses plain words and an Edit source button.
+
+#### Estimate status, versions and dates
+- The Status box in Estimate settings no longer lets a draft jump straight to Sanctioned or later without a technical sanction number and date; it takes you to Record technical sanction instead, so the scrutiny and the 'As sanctioned' version are not skipped.
+- Taking a sanctioned estimate back to Draft, In review or Awaiting approval needs a typed reason, which is kept in the estimate's History.
+- Saved versions can be renamed and given a note from the Versions tab, and Quick save and the automatic 'As sanctioned' version show the Sectional Engineer from Staff as who saved them.
+- Two items with the same code in different Parts are told apart by Item No. and Part in the cost anatomy, the price what-if and the technical sanction problem list, and long descriptions end in an ellipsis. The Cost Anatomy sheet never shows a negative zero.
+- Measuring or preparing a bill on an estimate with no technical sanction recorded shows a reminder with a link to Record technical sanction, and the same line is listed as an open point when the bill is passed. Nothing is blocked.
+- Contract details and Estimate settings refuse a work order date later than today and a completion date before the work order date, with the message beside the box. When the AA, TS and work order dates are typed out of order, the estimate still saves but a warning says which date is earlier than which.
+
+#### Estimate papers, the estimate book and drawings
+- The 3D-model drawing sheet is easier to read: openings are marked D1/W1 on the plan with their sizes listed underneath, the side elevation shows one wall instead of overlapping walls, and the section page shows only the cut plan.
+- Saving a plan, structure or 3D-model drawing also keeps its Marathi sheet as a second drawing; the Marathi book binds the Marathi sheet and the English book the English one, each with its own up-to-date status. Draw this building keeps the English sheet when the estimate has no room left for its Marathi edition, instead of refusing both.
+- The Complete Estimate Book can follow the reports you tick (a new Options switch), with the contents page and drawings, and the English book for a Sub Division no longer includes the tender Schedule B by default.
+- Cement, bitumen and emulsion consumption statements and the lead statement with trip cost can be opened in Excel, and the complete estimate workbook also includes the cost anatomy and those statements.
+- Scanned plans and phone photos up to 8 MB can be added: PNG and JPEG are shrunk automatically and the screen says how much was saved. A PDF that is too big is told how to shrink it, and the estimate-size message names the largest drawing.
+- A PDF set where some PDFs could not be made shows 'Incomplete set' instead of 'Up to date', and the retry keeps the same set number.
+- The Lead Statement no longer prints the nearest-quarries certificate when no material has a lead. The Rate Analysis paper says 'Rate analysis not prepared' for a custom item without an analysis.
+- The Road curve setting-out dialog opens without a red error or a failed request until a bend is typed.
+
+#### Bills and measurement books
+- Hidden-work warnings on an entry join the rows of one item into a single line ('rows 1 to 8') and scroll inside their own box, so the typing boxes stay on the screen.
+- Opening a measurement book and finishing a bill action read far less data, and preparing or withdrawing a bill no longer re-reads every measured row of the work.
+- Pressing Tab in a measurement line goes length, breadth, depth, Add; the 'avg' helper is out of the way and Alt+A presses it.
+- The Prepare-bill entry list has 'Tick all signed', 'Untick all' and 'Up to entry' buttons, and a long list scrolls inside its panel. The bill strip reads newest first, with the bill not yet prepared at the front.
+- The Pass for payment sheet opens at the top, showing the net payable and the points to check, instead of scrolled down to the name box.
+- The eleven supporting bill statements (royalty, cement, labour check, steel, extra items, excess and saving, bitumen, emulsion, work slip, measured ratios, chainage coverage) print in Marathi from the bill Print menu, with the same figures.
+- The Progress statement, Deviation statement, Clause 38 proposal, Page abstract and Measurement book (Form 52) print in Marathi from the e-MB Overview Print menu, and a single measurement entry prints in Marathi from the entry sheet. The Marathi page abstract shows titles, notes and totals in Marathi, and the Form 52 carried-forward line gives its units in Marathi.
+- The bill file's completion certificate, the page abstract and the pre-issue check print the Marathi name of work.
+- A delivery or attendance recorded on a notice to attend the measurement, the contractor's answer on an entry and the Deputy Engineer's decision on a dispute can be withdrawn with a reason, officer and date, so a wrong click no longer means cancelling the whole notice. The old record stays on the sheet, the printed register and the measurement book, struck through. Withdraw a decision first, then the answer.
+- A scrapped measurement page shows who scrapped it and on which day, on the screen and on the printed book, ledger and bill pages, in Marathi as well; older pages take the name from their history.
+
+#### Site records
+- The Records menu on the Site desk stays inside the window and scrolls, so every entry can be clicked on a laptop screen. Site tests and samples opens the site test register on the estimate's Letters tab with Add site test ready, and a new Laboratory results entry opens the results still awaited.
+- A site test that failed can raise a site issue and start a quality case, and a later passing site test of the same test, item and place can be linked as its retest.
+- A stage inspection can be asked for a stage you type yourself, and the dialog points to the ready-made pipe, drain, culvert, formwork and masonry stages.
+- The Pour cards tab can save the cube register to Excel, one row per sample, with the cube strengths, 7-day and 28-day means, lab report and verdict.
+- A diary day can be marked as a Sunday, holiday or bandh. Such a day counts as recorded, is not a work stoppage, adds no days lost to the hindrance register or the extension of time, and shows in its own colour on the month strip, in the printed diary and in the diary tiles.
+- The hindrance register lists each diary stoppage that has no register entry as a button; one press fills the dates and the diary's hindrance text into a new entry, and the diary day has a matching 'Record in hindrance register' button.
+- The phone page has the same tabs as the saved field file, one for each kind of note, so a Junior Engineer no longer scrolls through sixteen screens to reach the order or stage inspection forms; the last kind used opens again on reload.
+- Fixed photo points can be renamed or re-chainaged from their row with Edit, so a typing mistake no longer means removing the point and tagging every photograph again.
+
+#### Office registers and statements
+- The Sub-Division desk button on the Dashboard shows how many bills and measurements are waiting, instead of repeating the number of due reminders.
+- A task you typed yourself can be marked Done or edited straight from the Work queue, with an Undo.
+- Find anywhere finds issued Measurement Books by number, and also review cases, stock counts, extension of time proposals, material approvals, safety rounds and monsoon readiness rounds; each result opens the right register or sheet. It also finds settings by name, ignores apostrophes and knows more everyday words such as retention, delete estimate, KML, rounding and restart.
+- A staff member entered as JE, Junior Engineer or कनिष्ठ अभियंता shows as the Sectional Engineer on the Dashboard, and the Staff designation list also offers Junior Engineer, Assistant Engineer, Sub Divisional Engineer, Head Draftsman and Surveyor.
+- The AA/TS register, Year-end liability, Expenditure forecast, DLP expiry, Security deposit register, MB register, Fund planner and about 25 more office statements print in Marathi, each with a Print in Marathi button beside Print, and their page counter, footer line, footer date and Sectional Engineer / Deputy Engineer signatures are in Marathi. Work numbers and names you typed keep their own digits and wording.
+- In a Marathi session the Excel exports of those statements, including Payments outstanding and Audit paras, come out in Marathi too, with the same figures. The recoveries statement writes the net amount in Marathi words.
+- Rows deleted from the office registers (inward letters, legal cases, instruments, bench marks with their photo, roads, material sources, review meetings and issued MB books) are kept for 30 days: 'Deleted - Undo' appears after the delete, and a 'Recently deleted' list in Registers and statements restores them. Restore is refused when the number or name has since been reused.
+- An inward letter can hold its scanned copy, with or without a work, and it opens from the register.
+- Outward letters have a Reference line and an Enclosures list on the print, in English and Marathi, and an issued letter records how it was sent, the date sent and the post or receipt number; these appear in the outward letters list and in the outward register print and Excel.
+- The Bench mark register and the Instruments register print on the office letterhead in English or Marathi and save to Excel; the instruments statement shows who holds each instrument and when calibration is next due.
+- Rough cost, structure register, pending letters, legal cases pending, open action points of meetings, material forecast, audit para history, inspection coverage and the MB page abstract can be taken to Excel.
+- Works by ZP circle: paste a table of villages from Excel or CSV, check the rows, and save them all at once.
+
+#### Work files, backup and office settings
+- A work file coming back from the DE shows what the DE signed off on records you both hold (a cleared stage inspection, a verified e-MB entry, a decision on a dispute, an order acknowledged, a quality case moved on). Tick the ones to take in; they are written with an Activity line and Undo puts them back.
+- Records on a bill or in a frozen work are never changed by a take-in, and a blank in the file never blanks what you already have. When a returned file adds nothing new but some records differ, the screen says how many differ instead of 'Nothing new to take in'.
+- The exchange-folder take-in shows how many sign-offs came back for each work and lets you take them in with the work.
+- On an iPad or any browser, a saved whole work file or exchange folder can be downloaded, and a whole work file or zipped exchange folder can be uploaded from the Import and Take-in screens; they are checked like a listed file and never replace one.
+- Taking in a large office-settings file (for example a district-wide Gram Panchayat to ZP circle table) is no longer slow.
+- The Second copy folder can also keep a weekly office package (issued reports, signers and templates); tick 'Also keep an office package there' in Settings > Backups. A reminder and a Dashboard line tell the office when no office package has been saved in two weeks.
+- Staff and the Gram Panchayat to ZP circle table travel in the office settings file, so a second PC or a DE's PC needs no retyping of people or villages.
+- What is using space shows what each work keeps inside the database, and the database can be compacted from the app after a safety backup.
+- When an estimate cannot be deleted because of records kept for good, the message offers 'Archive this estimate instead'. Going Back to a deleted estimate, or opening an old link to one, shows one calm note with a button to Recently deleted instead of a red error.
+- The OneDrive or network-drive warning collapses to a one-line bar after the first view each day, and its first step, saving an office package, is one click.
+
+#### Marathi
+- You can type the name of work in Marathi in Estimate settings and on New estimate; the Marathi cover page, technical sanction note, Gram Panchayat resolution, abstract and village sheets print it, and print the English name when you leave it blank.
+- The Marathi Abstract, Material abstract, technical sanction note, Gram Panchayat resolution, Material certificates and the Marathi Complete Estimate Book read शाखा अभियंता, उप अभियंता and पृष्ठ n / N instead of English designations and page counter. The book's contents page is fully Marathi, including its heading, labels, file name and drawing rows.
+- Units such as Running Metre, Metric Tonne, Kilogram, Kilometre, Hour and Acre, and घनमीटर and मेट्रिक टन in the measurement window, Add item results, the e-MB book, valuation and the Tests and royalty, Rates and materials and earthwork tables, show in Marathi on Marathi screens, spelt the same as on the printed papers.
+- The e-MB Books list names the last bill in Marathi, and the Dashboard's last-backup line says why the backup was taken. The Settings, Office profile, shortcuts, Getting started, bills export and item-details tooltips are translated.
+- Quality Desk findings read in Marathi, and an item code such as 5.22A keeps its capital letters. The 3D builder names new parts and writes its measurement rows and deductions in Marathi when the screen is in Marathi.
+- About 880 more of the server's red messages, and about 30 more after the second review (measurement and QC checks, tender security, repricing, Excel import, registers, levels books, payments and others), appear in Marathi on a Marathi screen.
+- The first-run Welcome offers English and Marathi buttons, and 'See the steps' opens the Marathi Start here page when Marathi is chosen.
+
+#### Help, settings and updates
+- If the program's service stops, you see one 'service is not responding' banner with a single Retry, repeated errors are counted instead of stacked, and the notifications bell gets one entry for the whole outage; the banner clears itself when the service is back.
+- Settings > Office has a Support contact box. It appears in Help > Diagnostics and Settings > About, and the Start here guide no longer has a blank to fill in.
+- The User guide puts the how-to chapters first and moves the release history to the end, with new how-to sections for the features added in the last release. Known limitations is grouped by topic with a short summary.
+- Help > Guides includes the e-MB reference, Estimate versions, Laboratory results and the V2223 and Civil Estimate import guides, and Help search covers them. Help search finds 'whats new' and what's new alike, and the command list shows one Recently deleted entry.
+- A failed update shows what the installer reported, with buttons to open the updates folder and try again, and the support file includes it; an update that was interrupted is flagged.
+
+#### Speed
+- Faster first launch after install or upgrade: the release joins the page's start-up scripts into one file, so the window loads 4 scripts instead of about 320. On a slowed processor the page became ready about 1.4 seconds sooner. Developer copies and edited sources still load the plain script files.
+- The Dashboard asks the server once, not twice, for the four work lists and the clean-up setting when the app opens.
+
+#### Narrow windows and iPad
+- On an iPad held upright, all nine tabs of an open estimate fit without sideways scrolling, and larger text no longer squeezes the page title to a letter per line: the toolbar moves under the title.
+- The open-estimate pane can no longer be nudged sideways by touch, and on touch screens a tapped button, row, tab or card is no longer left highlighted.
+- On an iPad, a field at the bottom of a dialog is scrolled up above the on-screen keyboard when you tap into it, and pressing Return after a capital letter or a digit in the measurement grids moves forward as usual instead of back a box.
+
+#### About
+- Settings > About credits the maker: 'Made by Abhishek Dhumal' heads the Credits list (in Marathi too), and the Setup welcome page says 'Made by Abhishek Dhumal for Pune Zilla Parishad.'. The README files and the User Guide name him as well.
+
+#### Left for the next round
+- Drawing the five core editors (work, measurement book, profile, work settings, measurement dialogs) only when first opened was tried and made the start-up slower, so it is not in this update.
+- The statements for one estimate (work history, Gram Sabha summary, photo sheet, structure register, closeout review and the like) print in Marathi from the server but have no Print in Marathi button yet, and the supporting bill statements are not part of 'The whole set of the bill in Marathi'.
+
 ## v1.35.0 — Finishing touches (2026-11-04)
 
 Released 4 November 2026. Carries the UI consistency pass, Round 121 (the whole-application review with its 102 items, the iPad layout fixes and the faster start-up) and a new application icon.
