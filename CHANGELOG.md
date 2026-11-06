@@ -1,5 +1,86 @@
 # Changelog
 
+## v1.36.1 — Polish and pace (2026-11-06)
+
+Released 6 November 2026. Follows 1.36.0 and carries Round 124: a review of the 1.36.0 code whose 69 items, each checked by a second reader, are built (a few in part, as noted under "Left for the next round"), and a faster test run for building the Windows release. No figure of an existing estimate or bill changes, and official rates and calculation rules are unchanged. The database stays at schema 24 (SCHEMA_VERSION is unchanged); the only database change is two new indexes on the measurement-book audit table and the check-remark history, created in place the first time the database is opened. They hold no new data and add no column or table, so an upgrading office keeps its data as it is.
+
+### Round 124
+
+#### Screens and layout
+- The left menu now fills the window at every scroll position; it no longer stops 28 px short of the bottom with a blank band under Collapse once the page scrolls past the green strip.
+- The one-line help sentence under a screen title is allowed two lines, so it is read in full on 15 of the 16 screens that were cut at 1180 px wide, in English and Marathi (the full text is also in its tooltip). The Site desk sentence is still shortened at 1180 px.
+- The top-bar Search (Ctrl K) is a bare icon up to 1500 px wide and a full box above that, on every screen, so the bar no longer jumps from screen to screen.
+- The Dashboard no longer jumps while the first screen opens: the first-run note, the Simple view, the Continue card and the Needs attention header keep their space until the first read ends.
+- The words on the green Grand total strip are white, 14 px and semibold and pass the 4.5 to 1 contrast rule; the History search says 'Search history' and the Schedule of rates box in Estimate settings shows its full name as a tooltip.
+- Check before issuing on the Reports tab: with Show details open the card takes its own row and its list is capped, so the toolbar and the report list stay on a laptop screen.
+- Quick builder dialogs: the pinned Create bar now ends at the edge of the dialog, so no line of the form shows beneath it.
+- When a save fails, is not answered or conflicts, the long message moves into a tooltip and a hidden line for screen readers, and the work name, Grand total and the Check, Reload and Try saving again buttons stay on the screen.
+- The first-run Welcome buttons stay on one row in Marathi.
+- The e-MB window uses the same neutral greys and green as every other window (the old blue-grey tab strip, canvas and blue 'Entry 1' chip are gone). On the Entries tab the step note and the technical-sanction note share one thin row, Measurement Type sits beside the item and is no longer clipped, and the row where Nos, L, B and D are typed sits above the Save bar at 1366 x 768. In the Road bill calculator the Length, Width and name boxes have a faint border and example values, and Duplicate is an icon.
+- Add measurement: the Nos. and L boxes show '2' and '3.5' (the line above still says sums such as 2+1 and 7/2 are allowed) and a rupee amount stays on one line in Marathi.
+- The Road curve sheet's Remove bend button stays inside its card.
+
+#### Estimates
+- Add items from a code list has a 'Put rows without a sub work in' box (it starts at the sub work you have open), and a typed sub work can be the full name, a unique beginning or a whole word such as 'Part B'. The check table shows two lines of each item's text, with the full text on hover, so a 20-line list can be reviewed without long scrolling.
+- Quick road chainage schedule no longer sends a failing price request when you press Add line or Add crossing on a line that is not filled in yet.
+- Name of work, and Name of work (Marathi), are two or three rows tall in Estimate settings and New estimate, so a long name can be proofread; Enter does not add a line and pasted line breaks become spaces.
+- A measurement that takes an item below zero is marked in the quantity check, and Add measurement asks 'Save a negative quantity?' before saving; the readiness blocker now says 'zero or negative quantity'.
+- The schedule item search matches word endings, so plastering finds plaster items and excavating finds excavation items; a word typed exactly still ranks first.
+- The Versions tab has one search box, and times are shown in the 12-hour clock with am or pm everywhere on screen that was mixing the two (the save indicator, Quick save names, notifications, Saved time, recovery check, report status and the drafts inbox).
+- Counts read as plain words: '1 event', '4 items', '1 day overdue' instead of '1 event(s)', '4 item(s)', '1 day(s) overdue' on the History, Recap, Work queue, sub work cards, the quick builders and about 80 other screens. The work queue row no longer repeats its title before the colon and shows the reason underneath.
+- Report counts leave out the hidden tender papers for a Sub Division estimate, so '16 of 64 selected' matches what can be seen.
+- The Tests & royalty Basis column shows 'material' and 'work item' as words of the screen language.
+
+#### Measurement books and bills
+- A bill, and its pass-order date, cannot be dated earlier than the latest measurement in it; the Bill tab date box and the Pass sheet take that day as their minimum and the server refuses the same in words. The bill date is limited by the measurement dates only; the pass order is limited by the DE's signing as well.
+- On a final bill a date of completion earlier than the last measurement is warned about once in the Pass sheet and the warning is kept with the pass; it is not refused, because final measurements are recorded after completion in PWD practice. The defect liability calculation is unchanged.
+- A quantity that is absurdly large, or a value at the item's rate beyond the program's limit, is refused when the entry is saved, naming the row and the item. For an entry saved earlier, the next bill, the check-measurement certificate and the Year-end liability statement now say which entry (MB number and page) is at fault instead of a bare 'outside the supported range' error.
+- A page for a book that is not in the MB register must be a positive whole number or a forward range such as 12-13 (0, 101 as text, 'abc', 12A and ii are refused); a page above 100 in an unregistered book shows a warning in the 'Check the page and date' box. Pages saved earlier are kept as they are.
+- Opening the Bill tab reads the five disclosure statements (QC papers, ratios, labour, road layers and earthwork) once instead of twice.
+
+#### Papers and prints
+- The letterhead and 'ZP BILL FORM NO. 58' heading no longer end a page alone in the bill set, in English and Marathi.
+- The Measurement Book (Form 52) 'Total ... Cubic Metre' lines wrap inside their cell instead of losing the end of the unit, and the Unit column of the bill abstract and Form 58 account is wide enough for 'Number'.
+- The Labour Abstract no longer leaves a 'SUBWORK 2' or 'SUBWORK 3' heading alone at the foot of a page.
+- The printed Valuation, Form 58 Part III and abstract no longer carry the internal reminder 'record the security deposit as per agreement in Contract details'; the screen still shows it.
+- The Reports preview opens at Fit width on every window (it was Whole page at about 21 to 27 percent on a 1366 x 768 laptop). A stored choice is still kept.
+- Creating a PDF set shows 'Paper 5 of 16: Abstract' with a Stop button; papers not yet printed are marked stopped.
+- The Monthly Progress Report (the simple list), the work history, structure register, fixed-point photo sheet, photo album, Action Taken Report, work information board and Gram Sabha summary print in Marathi on a Marathi request, with their Excel exports and the returns pack.
+- Fourteen site and quality registers (QC test register, concrete account, pour calendar, material approvals, drawing register, road laying, pavement cores, stack measurements, salvaged materials, steel and cement reconciliation, material balance, site clearances, staff and machinery on site, and the safety sheet) print in Marathi with ?lang=mr. The QC register, the concrete account and the pour calendar have a Print in Marathi button. English prints are unchanged.
+- The QC Test Register, cube register, concrete account, pour calendar, pavement cores, material balance and the other wide site prints use landscape pages with set column widths, so words no longer split and columns no longer overlap. A Site Diary day with no entry keeps its date on one line.
+- Monthly returns: Print the returns pack is disabled, with a tooltip, when no return applies to the month.
+
+#### Marathi
+- Marathi digits are no longer mixed with ordinary digits on the Site desk and in the e-MB step line ('पायरी 1 / 4').
+- One word for Contractor, ठेकेदार, throughout the screens and the Marathi papers (the sidebar and 140 other places said कंत्राटदार).
+- Field names inside refusals (for example the skilled labour count in the site diary), the Audit paras sources and statuses, the Road curve bend form, the Test request letter notice, the units in the Material balance sheet and the DXF take-off list, the quick-builder part headings, and the Template picker (name, summary and category of all 35 starter templates, with the Marathi name of work filled in) now show in Marathi. The quick-builder preview and its Grand total redraw when the language is switched.
+- Ctrl+K, Ctrl+F, Ctrl+S, Ctrl+P, Ctrl+Comma, Ctrl+Z and Ctrl+Shift+S work on a Marathi (Inscript) keyboard by using the key's position when the typed letter is not a Latin letter.
+
+#### Saving, the desktop app and recovery
+- A save that gets no answer says 'Still saving, please wait' after 10 seconds and, after 45 seconds, gives up with the existing 'not answering' message and the Check button, so later saves are not stuck behind it. Imports and work-file exports are not timed.
+- In the desktop app the window uses the same local address on every launch for a given database (a port between 49200 and 65199 worked out from the database path), so typed-but-unsaved drafts are found again after a restart. If that port is taken a free one is used and the log says earlier drafts will not show. Drafts typed in earlier releases cannot be recovered.
+- Back, mouse-back and Alt+Left out of an estimate asks 'Discard changes?' if a sheet has typed text and otherwise closes any open sheet with the estimate, so Estimate settings no longer stays over the Dashboard.
+- A Windows-only flaky test (a temporary database still locked at clean-up) is fixed.
+
+#### Speed on low-end PCs
+- The start page no longer reads and hashes all 849 web files on every launch; its version token comes from file sizes and dates and is cached.
+- Two indexes (emb_audit_work and work_check_remark_events_work) stop every estimate read from scanning the audit tables of all estimates.
+- After an upgrade or a new day the first Dashboard no longer costs every estimate before it answers; the totals are warmed in the background, newest first.
+- A Marathi session starts about as fast as an English one: the word list is cached with the page's version token.
+- Check before issuing: Open all on a group works the first time and the card no longer keeps old copies of itself; closed groups draw no rows until opened, so the Reports tab builds far fewer elements.
+
+#### Help and guides
+- The User guide's What is new in 1.36.0 section now describes Round 122 and Round 123 (and What is new in 1.36.1 follows it), the shortcut line uses the sidebar's screen names, and the Language chapter says how to switch, what prints in Marathi, what stays English and how the Inscript keyboard works. Supported features carries the same.
+
+#### Release building
+- Faster Windows test matrix: `tools/run_test_matrix.py --jobs N` runs N test modules side by side (0 = CPU count, at most 12), each still in its own process with its own timeout and its own TEMP folder. Modules that rebind ports, use the LAN broadcast socket or time themselves run on their own afterwards. A module that fails is run once more on its own and fails the matrix only if it fails again; modules that passed only on that retry are named. The release builder takes `--test-jobs N` and Build from branch takes `-TestJobs N`; the default stays one at a time.
+
+#### Left for the next round
+- The Site desk help sentence is still shortened at 1180 px; the Reports canvas on a 768 px laptop is still short even at Fit width; at 1180 x 720 the e-MB typing row sits close to the Save bar.
+- A few '(s)' plurals remain in the Engineering calculator builders and some import and recovery messages; entry and photo times and the next-backup line keep their 24-hour form.
+- Each paper in a PDF set still starts its own browser; a port fallback in the desktop app is logged only, with no message on screen.
+- A final-bill completion date earlier than the last measurement is warned about, not refused; the other eleven site registers have no Print in Marathi button on an English screen; the Marathi returns pack still files the Division form by default.
+
 ## v1.36.0 — Polish and papers (2026-11-05)
 
 Released 5 November 2026. Carries Round 123 (a user-interface polish round, with the window fit and a repaint fix) and Round 122 (92 review items and 10 queued items, followed by a second review). No figure of an existing estimate or bill changes.
